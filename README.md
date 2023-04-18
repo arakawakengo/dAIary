@@ -31,12 +31,28 @@ git remote add origin git@github.com:arakawakengo/kyodai_flea_market_app.git
 
 # setting ssh key
 ssh-keygen -t rsa -C "username"
+```
 ![rsa key](img/20200810174740183.png)
+```
 # enter the dir that storage ssh key 
 cd ~/.ssh
 # show the file 
 ls
 # show the content of rsa key
 cat id_rsa.pub
+```
 ![id_rsa.pub](img/20200810180651227.png)
+### Paste the id_rsa.pub to Github
+![key gitbub](img/20200810181625337.png)
+
+### Test the Link 
+![add key to github](img/20200810181903438.png)
+
+```
+ssh -T git@github.com
+```
+### push your code to remote branch
+
+```
+git push -u origin main
 ```
