@@ -2,7 +2,7 @@
 Practice of Infomation System 8班
 
 # Recommond system
-Stiky
+
 ## This is the introduce doc to inite the git
 
 ## step 1
