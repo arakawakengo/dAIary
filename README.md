@@ -56,3 +56,17 @@ ssh -T git@github.com
 ```
 git push -u origin main
 ```
+
+## vue がインストールできているか確認
+kyodai_flea_market_appフォルダにいることを確認
+```
+cd market_app
+npm run serve
+```
+これでサーバーが立ち上がったらOK
+
+## Djangoがインストールされているか確認
+kyodai_flea_market_appフォルダにいることを確認
+```
+python manage.py runserver
+```
