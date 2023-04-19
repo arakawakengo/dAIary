@@ -57,16 +57,49 @@ ssh -T git@github.com
 git push -u origin main
 ```
 
-## vue がインストールできているか確認
-kyodai_flea_market_appフォルダにいることを確認
+## 環境構築 / Build a development environment
+- リポジトリをclone / Clone this repository
+```
+git clone https://github.com/arakawakengo/kyodai_flea_market_app.git
+```
+- Djangoのインストール / Install Django
+```
+cd kyodai_flea_market_app
+pip install django
+```
+
+- Vue.jsのインストール / Install Vue.js
+```
+cd market_app
+npm install
+```
+### 備考 / Note
+- ```npm install```は、```/kyodai_flea_market_app/market_app/```で実行すること。
+- ```npm install``` を実行することで、market_app/package.jsonに定義されているパッケージ(Vueなど)をまとめてインストールできます。
+- ```npm install`` should be run in ```/kyodai_flea_market_app/market_app/``.
+- By running ```npm install```, the packages (Vue, etc.) defined in market_app/package.json can be installed at once.
+
+
+## VueとDjangoのサーバーを起動できるか確認 / Check if you can start Vue or Django server
+### Vue
+- ```/kyodai_flea_market_app/```フォルダにいることを確認 / Make sure you are in ```/kyodai_flea_market_app/```
 ```
 cd market_app
 npm run serve
 ```
-これでサーバーが立ち上がったらOK
+http://localhost:8080/ にアクセスしてVueの画面が表示されればOK
 
-## Djangoがインストールされているか確認
-kyodai_flea_market_appフォルダにいることを確認
+Go to http://localhost:8080/ and if you see the Vue screen, you're good to go.
+
+
+### Django
+- ```/kyodai_flea_market_app/```フォルダにいることを確認 / Make sure you are in ```/
+kyodai_flea_market_app```
+
 ```
 python manage.py runserver
 ```
+
+http://localhost:8000/ にアクセスしてDjangoの画面が表示されればOK
+
+Go to http://localhost:8000/ and if you see the Django screen, you're good to go.
