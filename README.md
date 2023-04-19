@@ -29,7 +29,7 @@ workspace/kyodai_flea_market_app/PoIS
 ### This is Vue path that all of the html file and function will storage in this path. Almost all of our work in the first phase is carried out here.
 ### Please familiarize yourself with all the files under this folder first. 
 ```shell
-workspae/kyodai_flea_market_app/market_app
+workspace/kyodai_flea_market_app/templates
 ```
 
 
@@ -38,7 +38,7 @@ workspae/kyodai_flea_market_app/market_app
 ### Vue
 - ```/kyodai_flea_market_app/```フォルダにいることを確認 / Make sure you are in ```/kyodai_flea_market_app/```
 ```shell
-cd market_app
+cd templates
 npm run serve
 ```
 http://localhost:8080/ にアクセスしてVueの画面が表示されればOK
