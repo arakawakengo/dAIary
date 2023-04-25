@@ -93,3 +93,11 @@ commit messageには、自分のした変更内容が良く分かるようなコ
 git checkout main
 git pull origin main
 ```
+### 最新にしたローカルのmainブランチの内容を自分の作業ブランチに反映する
+ローカルのmainブランチを更新した後は、自分の作業ブランチにもその変更を反映させる必要があります。
+まず、自分のブランチに移動した後、git mergeコマンドを実行します。
+```git merge origin main```で、mainブランチの内容を今いるブランチ[your_branch_name]に反映します。
+```
+git checkout [your_branch_name]
+git merge origin main
+```
