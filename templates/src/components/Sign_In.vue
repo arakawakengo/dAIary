@@ -1,10 +1,38 @@
 <template>
-<!DOCTYPE html>
-<html>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
 <head>
 	<title>Randomiary</title>
-	<style>
-		form {
+
+</head>
+<body>
+	<h1 style="text-align: left;">Randomiary</h1>
+
+	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<form>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+
+			<input type="submit" value="Login">
+			<input type="button" id="register-btn" value="Sign Up">
+		</form>
+	</div>
+</body>
+<!--</html>-->
+
+</template>
+
+<script>
+export default {
+    name: "Sign_In"
+}
+</script>
+
+<style scoped>
+form {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -26,7 +54,7 @@
 			height: 30px;
 		}
 
-		input[type="submit"] {
+		input[type="submit"], input[type="button"] {
 			background-color: #4CAF50;
 			color: white;
 			padding: 10px 20px;
@@ -37,7 +65,7 @@
 			margin-top: 20px;
 		}
 
-		input[type="submit"]:hover {
+		input[type="submit"]:hover, input[type="button"]:hover {
 			background-color: #45a049;
 		}
 
@@ -55,34 +83,4 @@
 		#register-btn:hover {
 			background-color: #007a99;
 		}
-	</style>
-</head>
-<body>
-	<h1 style="text-align: left;">Randomiary</h1>
-
-	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-		<form>
-			<label for="username">Username:</label>
-			<input type="text" id="username" name="username">
-
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password">
-
-			<input type="submit" value="Login">
-			<button id="register-btn">Sign Up</button>
-		</form>
-	</div>
-</body>
-</html>
-
-</template>
-
-<script>
-export default {
-    name: "login"
-}
-</script>
-
-<style scoped>
-
 </style>
