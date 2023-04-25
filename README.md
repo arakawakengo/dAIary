@@ -12,9 +12,9 @@ Practice of Infomation System 8班
 git clone https://github.com/arakawakengo/kyodai_flea_market_app.git
 ```
 
-* [Setting Git](Guidence/Git.md)
-* [Setting Django](Guidence/django.md)
-* [Setting Vue](Guidence/Vue.md)
+* [Setting Git](Guidance/Git.md)
+* [Setting Django](Guidance/django.md)
+* [Setting Vue](Guidance/Vue.md)
 
 ## 关于公文文件目录的说明
 ### This is project path that all the top level
