@@ -5,6 +5,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+// import LogIn from "./components/LogIn.vue"
 
 export default {
   name: 'App',
