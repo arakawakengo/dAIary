@@ -4,7 +4,6 @@
 </head>
 <body>
 	<h1 style="text-align: center;">Randomiary</h1>
-
 	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 		<form>
 			<label for="username">Username:</label>
