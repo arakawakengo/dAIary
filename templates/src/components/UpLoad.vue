@@ -1,11 +1,45 @@
 <template>
-<!DOCTYPE html>
-<html>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
 <head>
 	<title>Randomiary</title>
-	<style>
-		/* 横着的菜单栏样式 */
-		.menu {
+
+</head>
+<body>
+	<div class="menu">
+		<h1>Randomiary</h1>
+		<div>
+			<span class="menu-item">プロファイル</span>
+			<span class="menu-item">日記作成</span>
+			<span class="menu-item">日記観察</span>
+		</div>
+	</div>
+
+	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<form class="form">
+			<label for="title">日記タイトル:</label>
+			<input type="text" id="title" name="title">
+
+			<label for="content">日記内容:</label>
+			<textarea id="content" name="content"></textarea>
+
+			<input type="submit" value="日記投稿">
+		</form>
+	</div>
+</body>
+<!--</html>-->
+
+
+</template>
+
+<script>
+export default {
+    name: "UpLoad"
+}
+</script>
+
+<style scoped>
+.menu {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -68,41 +102,4 @@
 		input[type="submit"]:hover {
 			background-color: #45a049;
 		}
-	</style>
-</head>
-<body>
-	<div class="menu">
-		<h1>Randomiary</h1>
-		<div>
-			<span class="menu-item">プロファイル</span>
-			<span class="menu-item">日記作成</span>
-			<span class="menu-item">日記観察</span>
-		</div>
-	</div>
-
-	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-		<form class="form">
-			<label for="title">日記タイトル:</label>
-			<input type="text" id="title" name="title">
-
-			<label for="content">日記内容:</label>
-			<textarea id="content" name="content"></textarea>
-
-			<input type="submit" value="日記投稿">
-		</form>
-	</div>
-</body>
-</html>
-
-
-</template>
-
-<script>
-export default {
-    name: "UpLoad"
-}
-</script>
-
-<style scoped>
-
 </style>
