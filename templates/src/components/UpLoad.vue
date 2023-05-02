@@ -11,7 +11,6 @@
 		<div>
 			<span class="menu-item">プロファイル</span>
 			<span class="menu-item">日記作成</span>
-			<span class="menu-item">日記観察</span>
 		</div>
 	</div>
 
