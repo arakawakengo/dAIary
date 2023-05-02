@@ -1,6 +1,4 @@
 <template>
-<!--<!DOCTYPE html>-->
-<!--<html>-->
 <head>
 	<title>Randomiary</title>
 </head>
@@ -20,7 +18,6 @@
 		</form>
 	</div>
 </body>
-<!--</html>-->
 
 </template>
 
