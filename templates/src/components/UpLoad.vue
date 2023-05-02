@@ -1,6 +1,4 @@
 <template>
-<!--<!DOCTYPE html>-->
-<!--<html>-->
 <head>
 	<title>Randomiary</title>
 
@@ -27,9 +25,6 @@
 		</form>
 	</div>
 </body>
-<!--</html>-->
-
-
 </template>
 
 <script>
@@ -81,7 +76,7 @@ export default {
 		}
 
 		input[type="text"] {
-			height: 200px;
+			height: 70px;
 		}
 
 		textarea {
