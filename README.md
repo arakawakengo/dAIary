@@ -12,9 +12,9 @@ Practice of Infomation System 8班
 git clone https://github.com/arakawakengo/kyodai_flea_market_app.git
 ```
 
-* [Setting Git](Guidence/Git.md)
-* [Setting Django](Guidence/django.md)
-* [Setting Vue](Guidence/Vue.md)
+* [Setting Git](Guidance/Git.md)
+* [Setting Django](Guidance/django.md)
+* [Setting Vue](Guidance/Vue.md)
 
 ## 关于公文文件目录的说明
 ### This is project path that all the top level
@@ -92,4 +92,12 @@ commit messageには、自分のした変更内容が良く分かるようなコ
 ```
 git checkout main
 git pull origin main
+```
+### 最新にしたローカルのmainブランチの内容を自分の作業ブランチに反映する
+ローカルのmainブランチを更新した後は、自分の作業ブランチにもその変更を反映させる必要があります。
+まず、自分のブランチに移動した後、git mergeコマンドを実行します。
+```git merge origin main```で、mainブランチの内容を今いるブランチ[your_branch_name]に反映します。
+```
+git checkout [your_branch_name]
+git merge origin main
 ```

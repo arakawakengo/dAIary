@@ -1,10 +1,34 @@
 <template>
-<!DOCTYPE html>
-<html>
 <head>
 	<title>Randomiary</title>
-	<style>
-		form {
+
+</head>
+<body>
+	<h1 style="text-align: left;">Randomiary</h1>
+
+	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<form>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+
+			<input type="submit" value="Login">
+			<input type="button" id="register-btn" value="Sign Up">
+		</form>
+	</div>
+</body>
+</template>
+
+<script>
+export default {
+    name: "SignIn"
+}
+</script>
+
+<style scoped>
+form {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -55,34 +79,4 @@
 		#register-btn:hover {
 			background-color: #007a99;
 		}
-	</style>
-</head>
-<body>
-	<h1 style="text-align: center;">Randomiary</h1>
-
-	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-		<form>
-			<label for="username">Username:</label>
-			<input type="text" id="username" name="username">
-
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password">
-
-			<input type="submit" value="Login">
-			<input type="button" id="register-btn" value="Sign Up">
-		</form>
-	</div>
-</body>
-</html>
-
-</template>
-
-<script>
-export default {
-    name: "signin"
-}
-</script>
-
-<style scoped>
-
 </style>

@@ -1,17 +1,12 @@
 <template>
-  <LogIn msg="Welcome to Your Vue.js App"/>
-  
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-import LogIn from "./components/LogIn.vue"
-
 export default {
-  name: 'App',
-  components: {
-    LogIn
-  }
+  name: 'App'
 }
 </script>
 
