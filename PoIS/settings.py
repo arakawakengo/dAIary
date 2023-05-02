@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'PoIS.myApp',
     'rest_framework',
     'rest_framework.authtoken',
-    'authentication',
+    'PoIS.authentication',
     'corsheaders',
-    "diary",
+    "PoIS.diary",
 ]
 
 MIDDLEWARE = [
