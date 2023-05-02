@@ -1,7 +1,8 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import 'element-ui/lib/theme-chalk/index.css'
+import router from './router'
+import './assets/css/style.css';
 
-
-
-createApp(App).mount('#app')
+createApp(App)
+  .use(router)
+  .mount('#app')
