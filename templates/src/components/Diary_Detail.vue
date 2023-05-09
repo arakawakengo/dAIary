@@ -1,6 +1,4 @@
 <template>
-<!DOCTYPE html>
-<html>
 <head>
 	<title>Randomiary</title>
 	<style>

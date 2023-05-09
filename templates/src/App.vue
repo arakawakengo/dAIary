@@ -1,19 +1,12 @@
 <template>
-<!--  <img alt="Vue logo" src="./assets/logo.png">-->
-<!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-  <UpLoad />
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
-import UpLoad from "@/components/UpLoad.vue";
 export default {
-  name: 'App',
-  components: {
-     UpLoad
-    // HelloWorld,
-
-  }
+  name: 'App'
 }
 </script>
 
