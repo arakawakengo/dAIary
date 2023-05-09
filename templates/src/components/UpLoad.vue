@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="menu">
-		<h1>Randomiary</h1>
+		<h1>dAIary</h1>
 		<div>
 			<span class="menu-item">プロファイル</span>
 			<span class="menu-item">日記作成</span>

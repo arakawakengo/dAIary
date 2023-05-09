@@ -2,18 +2,17 @@
 
 
 <head>
-    <title>Randomiary</title>
+    <title>dAIary</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
     <header>
-        <h1 id="logo">Randomiary</h1>
+        <h1 id="logo">dAIary</h1>
         <nav id="menu">
             <a href="#">プロフィール</a>
             <a href="#">日記作成</a>
-            <a href="#">日記観察</a>
         </nav>
     </header>
     <main>
@@ -45,7 +44,7 @@
       </div>
     </main>
 <footer>
-      <p>&copy; 2023 Randomiary</p>
+      <p>&copy; 2023 dAIary</p>
     </footer>
   </body>
 
