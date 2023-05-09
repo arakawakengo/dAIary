@@ -11,6 +11,6 @@ class DiarySerializer(serializers.ModelSerializer):
 class DiaryCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiaryComment
-        fields = ('commentID', 'diaryID', 'Select_Character_Role_ID', 'Select_Character_Disposition_ID',
-                  'content', 'created_at'
+        fields = ('commentID', 'diaryID', 'Select_Character_Role_ID',
+                  'Select_Character_Disposition_ID', 'content', 'created_at'
                   )

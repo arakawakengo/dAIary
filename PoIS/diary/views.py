@@ -1,5 +1,4 @@
 from rest_framework import generics, status
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import DiaryContent, DiaryComment
 from rest_framework.views import APIView
@@ -25,6 +24,9 @@ class DiaryCommentView(APIView):
     def get(self, request):
         content = self.queryset.get('content')
         return Response(content)
+
+    def post(self, request):
+        pass
 
 
 class DiaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
