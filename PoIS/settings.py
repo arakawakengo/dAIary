@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'PoIS.authentication',
     'corsheaders',
     "PoIS.diary",
+    'PoIS.chat_gpt',
 ]
 
 MIDDLEWARE = [
