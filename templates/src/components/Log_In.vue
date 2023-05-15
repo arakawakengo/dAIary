@@ -1,9 +1,9 @@
 <template>
 <head>
-	<title>Randomiary</title>
+	<title>dAIary</title>
 </head>
 <body>
-	<h1 style="text-align: left;">Randomiary</h1>
+	<h1 style="text-align: left;">dAIary</h1>
 
 	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 		<form>
