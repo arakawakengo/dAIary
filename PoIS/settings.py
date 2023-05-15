@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,41 +26,6 @@ SECRET_KEY = 'django-insecure-6*+dmjg63yaj2q@syz6h9=3^-!@qq0vndk=p41q*$6@zktk=8-
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-# vue_calendar_project/settings.py
-
-# ...
-
-INSTALLED_APPS = [
-    # ...
-    'webpack_loader',
-    'kyodai_flea_market_app',
-]
-
-TEMPLATES = [
-    {
-        # ...
-        'DIRS': [
-            # ...
-            os.path.join(BASE_DIR, 'kyodai_flea_market_app', 'templates'),
-        ],
-        # ...
-    },
-]
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'kyodai_flea_market_app', 'static'),
-]
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
-}
-
-# ...
-
 
 # Application definition
 
