@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import DiaryContent, DiaryComment
+from .models import Diary, DiaryComment
 
 
 class DiarySerializer(serializers.ModelSerializer):
     class Meta:
-        model = DiaryContent
+        model = Diary
         fields = ('id', 'user', 'title', 'content', 'created_at', 'updated_at')
 
 

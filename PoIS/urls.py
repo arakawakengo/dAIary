@@ -21,5 +21,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('PoIS.authentication.urls')),
+    path('api/comment/', include('PoIS.chat_gpt.urls')),
     path('api/', include('PoIS.diary.urls')),
 ]
