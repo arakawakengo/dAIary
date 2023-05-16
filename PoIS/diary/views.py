@@ -20,7 +20,7 @@ class DiaryView(APIView):
                 "diary_list": [
                     {
                         "diary_id": diary.diary_id,
-                        "user_id":  diary.user.id,
+                        "user_id":  diary.user.id, # type: ignore
                         "title":  diary.title,
                         "content":  diary.content,
                         "created_at":  diary.created_at,
@@ -59,7 +59,7 @@ class DiaryByIDView(APIView):
         return Response(
                 {
                     "diary_id":     diary.diary_id,
-                    "user_id":      diary.user.id,
+                    "user_id":      diary.user.id, # type: ignore
                     "title":        diary.title,
                     "content":      diary.content,
                     "created_at":   diary.created_at,
