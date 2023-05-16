@@ -7,12 +7,15 @@
       <h2>Diary List</h2>
       
       <ul>
-          <li v-for="diary in diary_list[0].reverse()" :key="diary.id">
-          <h3>{{ diary.title }}</h3>
-          <p>{{ diary.content }}</p>
-          <p>{{ formatDatetime(diary.created_at) }}</p>
-        </li>
-      </ul>
+          <li v-for="diary in (diary_list[0] || []).reverse()" :key="diary.diary_id">
+            <router-link :to="`/diary-detail/${diary.diary_id}`">
+              <p>{{ diary.diary_id }}</p>
+              <h3>{{ diary.title }}</h3>
+              <p>{{ diary.content }}</p>
+              <p>{{ formatDatetime(diary.created_at) }}</p>
+            </router-link>
+          </li>
+        </ul>
     </div>
   </div>
 
@@ -21,6 +24,7 @@
 <script>
 import Header from "../components/Header.vue"
 import axios from "axios";
+
 export default {
   name: 'Dashboard',
   components: {

@@ -2,101 +2,122 @@
     <div class="diary_detail">
         <Header/>
         <body>
-            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-                <form class="form">
-                    <div class="input-group">
-                        <label class="past-diary-label" for="past-diary">自分が書いた過去の日記
-                            <span class="date">2023-04-25</span>
-                        </label>
-                        <textarea id="past-diary" class="past-diary-input" readonly></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label class="comment-label" for="comment">コメント：</label>
-                        <textarea id="comment" class="comment-input"></textarea>
-                    </div>
-                </form>
+            <div>
+            <!-- <div style="display: flex; justify-content: center; align-items: center; height: 100vh;"> -->
+                <h1>Diary Detail</h1>
+                <div class="diary-detail">
+                    <h2>{{ diary.title }}</h2>
+                    <p>{{ diary.content }}</p>
+                    <p>{{ formatDatetime(diary.created_at) }}</p>
+                </div>
+                
+                <h1>コメント</h1>
+                <div class="comment">
+
+                </div>
+
             </div>
         </body>
     </div>
 </template>
+
 <script>
 import Header from "@/components/Header.vue";
+import axios from 'axios';
+import { toRaw } from 'vue';
+
+
 export default {
     name: "DiaryDetail",
     components:{
         Header
+    },
+    data() {
+        return {
+            diary_id: "",
+            diary: []
+        };
+    },
+    async created() {
+    try {
+        const diary_id = this.$route.params.diary_id
+        const token = localStorage.getItem("access");
+        const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        const rawRes = toRaw(response.data);
+        const jsonString = JSON.stringify(rawRes);
+        this.diary = JSON.parse(jsonString);
+    } catch (error) {
+        console.error("Failed to fetch diaries.");
+        console.error(error);
     }
+  },
+  methods: {
+  formatDatetime(datetime) {
+    const date = new Date(datetime);
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hour = ("0" + date.getHours()).slice(-2);
+    const minute = ("0" + date.getMinutes()).slice(-2);
+    return `${year}-${month}-${day} ${hour}:${minute}`;
+  },
+},
 }
 </script>
 
 
 <style scoped>
-        /* 横着的菜单栏样式 */
-        .menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #F1F1F1;
-            height: 50px;
-            padding: 0 20px;
-        }
-        .menu-item {
-            font-size: 18px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        /* 输入框样式 */
-        .form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-        label {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            width: 1000px;
-        }
-        .comment-input {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 16px;
-            resize: none;
-            min-height: 200px;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            margin-bottom: 20px;
-        }
-        .past-diary-input {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 16px;
-            resize: none;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            margin-bottom: 20px;
-        }
-        .past-diary-label {
-            position: relative;
-            font-size: 18px;
-            margin-top: 10px;
-            width: 1000px;
-        }
-        .date {
-            position: absolute;
-            top: -25px;
-            right: 0;
-            font-size: 14px;
-            color: #999;
-        }
-    </style>
+    /* ページ全体のレイアウト */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* h2要素全般（Diary Detailとコメントの見出し） */
+    h1 {
+        color: #333;
+        font-size: 28px;
+        margin: 20px 0;
+    }
+
+    /* 日記詳細スタイル */
+    .diary-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        width: 80%;
+        min-height: 200px;
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+    .diary-detail h2 {
+        color: #444;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .diary-detail p {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* コメントセクションのスタイル */
+    .comment {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        width: 80%;
+        min-width: 300px;
+    }
+</style>

@@ -5,7 +5,7 @@
             <router-link to="/dashboard">Dashboard</router-link>
             <router-link to="/diary-create">Post Diary</router-link>
             <router-link to="/profile">Profile</router-link>
-            <router-link to="/">Sign out</router-link>
+            <router-link to="/" @click="logout">Sign out</router-link>
         </div>
     </div>
 </template>
@@ -14,6 +14,12 @@
 <script>
 export default {
     name: "Header",
+    methods: {
+        logout: function() {
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+        },
+    }
 }
 </script>
 
