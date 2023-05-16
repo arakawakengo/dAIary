@@ -1,51 +1,44 @@
 <template>
-        <div class="upload">
-        <Header/>
-            <head>
-            <meta charset="UTF-8">
-            </head>
-          <body>
-            <div class="container">
-              <div class="left-container">
-                <form class="form">
-                  <label for="title">Title:</label>
-                  <input type="text" id="title" name="title" readonly>
+  <head>
+  <meta charset="UTF-8">
+  </head>
+<body>
+  <div class="container">
+    <div class="left-container">
+      <form class="form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" readonly>
 
-                  <label for="content">Content:</label>
-                  <textarea id="content" name="content" readonly></textarea>
-                </form>
-              </div>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" readonly></textarea>
+      </form>
+    </div>
 
-            <div class="right-container">
-              <div class="dropdown-container">
-                <select class="dropdown">
-                  <option value="Option 1">Option 1</option>
-                  <option value="Option 2">Option 2</option>
-                  <option value="Option 3">Option 3</option>
-                </select>
-                <select class="dropdown">
-                  <option value="Option 4">Option 4</option>
-                  <option value="Option 5">Option 5</option>
-                  <option value="Option 6">Option 6</option>
-                </select>
-            </div>
-            <button class="button additional-button" style="margin-bottom: 30px;">  <!-- Increased margin -->
-                Additional Button
-            </button>
-            <textarea class="comment" rows="5" readonly></textarea>
-            </div>
-          </div>
-          </body>
-        </div>
+    <div class="right-container">
+      <div class="dropdown-container">
+        <select class="dropdown">
+          <option value="Option 1">Option 1</option>
+          <option value="Option 2">Option 2</option>
+          <option value="Option 3">Option 3</option>
+        </select>
+        <select class="dropdown">
+          <option value="Option 4">Option 4</option>
+          <option value="Option 5">Option 5</option>
+          <option value="Option 6">Option 6</option>
+        </select>
+    </div>
+    <button class="button additional-button" style="margin-bottom: 30px;">  <!-- Increased margin -->
+        Additional Button
+    </button>
+    <textarea class="comment" rows="5" readonly></textarea>
+    </div>
+  </div>
+</body>
 </template>
 
-<script setup>
-import Header from "@/components/Header.vue";
+<script>
 export default {
-    name: "Comment",
-    components:{
-        Header
-    }
+    name: "ComMent"
 }
 </script>
 

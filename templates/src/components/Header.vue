@@ -3,7 +3,7 @@
         <div class="title">dAIary</div>
         <div class="nav-links">
             <router-link to="/dashboard">Home</router-link>
-            <router-link to="/diary-create">Post Diary</router-link>
+            <router-link to="/upload">Post Diary</router-link>
             <router-link to="/profile">Profile</router-link>
             <router-link to="/">Sign out</router-link>
         </div>

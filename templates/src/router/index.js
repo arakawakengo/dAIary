@@ -7,6 +7,7 @@ import DiaryList from "../views/DiaryList";
 import DiaryDetail from "../views/DiaryDetail"
 import Profile from "../views/Profile"
 import UpLoad from "@/views/UpLoad.vue";
+import ComMent from "@/views/ComMent.vue";
 
 const routes = [
   {
@@ -51,8 +52,8 @@ const routes = [
   },
   {
     path:"/comment",
-    name:"Comment",
-    component: Comment,
+    name:"ComMent",
+    component: ComMent,
   }
 ]
 
