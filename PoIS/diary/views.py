@@ -1,3 +1,5 @@
+import json
+import requests
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -6,14 +8,14 @@ from .models import Diary, DiaryComment
 from .serializers import DiarySerializer
 
 
-class DiaryListCreateView(generics.ListCreateAPIView):
-    queryset = Diary.objects.all()
-    serializer_class = DiarySerializer
-
-    # permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+# class DiaryListCreateView(generics.ListCreateAPIView):
+#     queryset = Diary.objects.all()
+#     serializer_class = DiarySerializer
+#
+#     # permission_classes = [IsAuthenticated]
+#
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
 
 
 class DiaryView(APIView):
@@ -57,8 +59,29 @@ class DiaryView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+def commentGenerate(data):
+
+    url = 'http://localhost:8000/api/comment/'
+    param = json.loads(data.decode('utf-8'))
+    diary = Diary.objects.get(param.get('diaryID'))
+    content = diary.content
+    Select_Character_Role = param.get('Select_Character_Role')
+    Select_Character_Disposition = param.get('Select_Character_Disposition')
+
+    Message = {
+        'content': content,
+        'Select_Character_Role': Select_Character_Role,
+        'Select_Character_Disposition': Select_Character_Disposition
+    }
+
+    response = requests.post(url, data=json.dumps(Message))
+
+    return response
+
 class DiaryCommentView(APIView):
     serializer = DiarySerializer
+
     def get(self, request):
         diary_comment_list = DiaryComment.objects.all()
         return Response(
@@ -79,15 +102,19 @@ class DiaryCommentView(APIView):
         )
 
     def post(self, request):
-        serializer = self.serializer(data=request.data)
+        # 调用ChatGPT方法生成评论之后，序列化之后存储数据
+        data = request.data
+        commet = commentGenerate(data)
+        data['content'] = commet
+        serializer = self.serializer(data)
         if serializer.is_valid():
             comment = serializer.save()
             return Response(
                 {
                     'commentID': comment.commentID,
                     'diaryID': comment.diaryId,
-                    'Select_Character_Role_ID': comment.Select_Character_Role_ID,
-                    'Select_Character_Disposition_ID': comment.Select_Character_Disposition_ID,
+                    'Select_Character_Role': comment.Select_Character_Role,
+                    'Select_Character_Disposition': comment.Select_Character_Disposition,
                     'content': comment.content,
                     'created_at': comment.created_at
                 },
