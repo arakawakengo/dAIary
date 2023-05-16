@@ -2,10 +2,17 @@ import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import os
+import dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+dotenv.load_dotenv(dotenv_path)
+
+API_KEY = os.environ.get("API_KEY")
 
 class ChatGPTView(APIView):
     def post(self, request):
-        openai.api_key = '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'
+        openai.api_key = API_KEY
         #response = openai.Completion.create(
         #    engine="text-davinci-003",
         #    prompt=request.data["diary_text"],
