@@ -1,18 +1,18 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create Diary
-        </h2>
+  <div>
+    <Header />
+    <div class="diary-create">
+    <div class="create-form">
+      <div class="create-heading">
+        <h2>Create Diary</h2>
       </div>
-      <div>
+      <div class="form-fields">
         <label for="title" class="sr-only">Title:</label>
         <input
           v-model="title"
           id="title"
           type="text"
-          class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="title-input"
           placeholder="Title"
           required
         />
@@ -20,24 +20,29 @@
         <textarea
           v-model="content"
           id="content"
-          class="mt-2 h-64 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+          class="text-input"
           placeholder="Content"
           required
         ></textarea>
         <button
           @click="createDiary"
-          class="mt-4 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          class="create-button"
         >
           Submit
         </button>
       </div>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Header from "../components/Header.vue"
 export default {
+  components: {
+    Header
+  },
   data() {
     return {
       title: "",
@@ -66,4 +71,76 @@ export default {
 };
 </script>
 
+<style scoped>
+.diary-create {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f7fafc;
+  padding: 3rem;
+}
 
+.create-form {
+  background-color: #fff;
+  padding: 3rem; /* paddingの値を調整 */
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; /* max-widthの値を調整 */
+  margin-top: 2rem;
+}
+
+.create-heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.create-heading h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-input,
+.text-input {
+  border: 1px solid #cbd5e0;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.text-input{
+  height: 200px;
+  resize: vertical;
+}
+
+.create-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.create-button:hover {
+  background-color: #333; /* ホバー時の背景色を変更 */
+}
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+</style>
