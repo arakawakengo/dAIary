@@ -28,7 +28,7 @@
           @click="createDiary"
           class="create-button"
         >
-          Submit
+          Post Diary
         </button>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
             'Authorization': `Bearer ${token}`,
           },
         });
-        this.$router.push("/diary-list");
+        this.$router.push("/dashboard");
       } catch (error) {
         console.error("Failed to create diary.");
         console.error(error.response.data);
@@ -84,11 +84,11 @@ export default {
 
 .create-form {
   background-color: #fff;
-  padding: 3rem; /* paddingの値を調整 */
+  padding: 3rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px; /* max-widthの値を調整 */
+  max-width: 600px;
   margin-top: 2rem;
 }
 
@@ -133,7 +133,7 @@ export default {
 }
 
 .create-button:hover {
-  background-color: #333; /* ホバー時の背景色を変更 */
+  background-color: #333;
 }
 
 .Header {
