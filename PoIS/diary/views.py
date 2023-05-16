@@ -1,6 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .models import Diary
 from .serializers import DiarySerializer
@@ -9,10 +10,10 @@ import requests
 import json
 from django.http import HttpResponse
 
-
 class DiaryView(APIView):
     serializer = DiarySerializer
-    # permission_classes = [IsAuthenticated]　# 認証周りを擦り合わせる必要あり
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get (self,request):
         user = request.user
@@ -54,7 +55,8 @@ class DiaryView(APIView):
 
 class DiaryByIDView(APIView):
     serializer = DiarySerializer
-    # permission_classes = [IsAuthenticated]　# 認証周りを擦り合わせる必要あり
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, diary_id):
         diary = Diary.objects.get(diary_id=diary_id)

@@ -9,10 +9,10 @@
           <div class="left-container">
             <form class="form">
               <label for="title">Title:</label>
-              <input type="text" id="title" name="title" readonly>
+              <input type="text" id="title" name="title" readonly v-model="title">
 
               <label for="content">Content:</label>
-              <textarea id="content" name="content" readonly></textarea>
+              <textarea id="content" name="content" readonly v-model="content"></textarea>
             </form>
           </div>
 
@@ -20,13 +20,13 @@
           <div class="dropdown-container">
             <select class="dropdown" v-model="selectedCharacter">
                 <option value="" disabled selected>キャラを選択してね</option>
-                <option v-for="(value, key) in jsonData" :key="key" :value="key">
+                <option v-for="(value, key) in AIData" :key="key" :value="key">
                   {{ key }}
                 </option>
               </select>
               <select class="dropdown" v-model="selectedPersonality" v-if="selectedCharacter">
                 <option value="" disabled selected>特徴を選択してね</option>
-                <option v-for="(value, key) in jsonData[selectedCharacter]" :key="key" :value="key">
+                <option v-for="(value, key) in AIData[selectedCharacter]" :key="key" :value="key">
                   {{ key }}
                 </option>
               </select>
@@ -43,7 +43,8 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import jsonData from '@/assets/AI_data.json';
+import AIData from '@/assets/AI_data.json';
+import sample_diary from '@/assets/diary_sample.json';
 import axios from "axios";
 
 
@@ -54,7 +55,9 @@ export default {
     },
     data() {
         return {
-          jsonData: jsonData,
+          AIData: AIData,
+          title: sample_diary["title"],
+          content: sample_diary["content"],
           selectedCharacter: "",
           selectedPersonality: "",
           responseText: ""
@@ -66,9 +69,8 @@ export default {
             const token = localStorage.getItem("access"); 
       
             const data = {
-              context : this.jsonData[this.selectedCharacter][this.selectedPersonality],
-              diary_text: "10時ごろに宅配便で目がさめる。ヨーグルトとビスケットを食べて二度寝する。起きたら16時だった。\nやんなきゃいけないことはたくさんあるけどやる気しないなあ。\n \
-              部屋で寝てると気分が沈んでいくけど、外を歩いているときだけは少し前向きになる。でも部屋に戻るとまただめだ。\n22時くらいから少しマシになってきて本を読んだりする。あとパネポン。"
+              context : this.AIData[this.selectedCharacter][this.selectedPersonality],
+              diary_text: this.content
             };
       
             const headers = {
@@ -77,7 +79,7 @@ export default {
       
             axios.post(url, data, { headers })
               .then(response => {
-                this.responseText = JSON.stringify(response.data["response"]);
+                this.responseText = response.data["response"];
               })
               .catch(() => {
                 this.responseText = "エラーが発生しました。";
