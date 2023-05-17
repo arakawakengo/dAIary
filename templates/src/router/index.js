@@ -45,7 +45,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/comment",
+    path: "/comment/:diary_id",
     name: "Comment",
     component: Comment,
   }

@@ -9,10 +9,11 @@
           <div class="left-container">
             <form class="form">
               <label for="title">Title:</label>
-              <input type="text" id="title" name="title" readonly v-model="title">
+              <input type="text" id="title" name="title" readonly v-model="diary.title">
 
               <label for="content">Content:</label>
-              <textarea id="content" name="content" readonly v-model="content"></textarea>
+              <textarea id="content" name="content" readonly v-model="diary.content"></textarea>
+              <p>{{ formatDatetime(diary.created_at) }}</p>
             </form>
           </div>
 
@@ -46,6 +47,7 @@ import Header from "@/components/Header.vue";
 import AIData from '@/assets/AI_data.json';
 import sample_diary from '@/assets/diary_sample.json';
 import axios from "axios";
+import { toRaw } from 'vue';
 
 
 export default {
@@ -55,13 +57,34 @@ export default {
     },
     data() {
         return {
+          diary_id: "",
+          diary: [],
+          sample: sample_diary,
           AIData: AIData,
-          title: sample_diary["title"],
-          content: sample_diary["content"],
           selectedCharacter: "",
           selectedPersonality: "",
           responseText: ""
         };
+    },
+    async created() {
+      try {
+          const diary_id = this.$route.params.diary_id
+          const token = localStorage.getItem("access");
+          const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}`, {
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+              },
+          });
+          console.log(response.data)
+          const rawRes = toRaw(response.data);
+          const jsonString = JSON.stringify(rawRes);
+          this.diary = JSON.parse(jsonString);
+          this.diary.content = this.diary.content.replace(/\\n/g, "\n");
+      } catch (error) {
+          console.error("Failed to fetch diaries.");
+          console.error(error);
+          this.diary = this.sample;
+      }
     },
     methods: {
         submitForm() {
@@ -69,10 +92,11 @@ export default {
             const token = localStorage.getItem("access"); 
       
             const data = {
+              diary_id: this.diary_id,
               character: this.selectedCharacter,
               personality: this.selectedPersonality,
               context: this.AIData[this.selectedCharacter][this.selectedPersonality],
-              diary_text: this.content,
+              diary_text: this.diary.content,
             };
       
             const headers = {
@@ -86,7 +110,16 @@ export default {
               .catch(() => {
                 this.responseText = "エラーが発生しました。";
               });
-          }
+          },
+          formatDatetime(datetime) {
+            const date = new Date(datetime);
+            const year = date.getFullYear();
+            const month = ("0" + (date.getMonth() + 1)).slice(-2);
+            const day = ("0" + date.getDate()).slice(-2);
+            const hour = ("0" + date.getHours()).slice(-2);
+            const minute = ("0" + date.getMinutes()).slice(-2);
+            return `${year}-${month}-${day} ${hour}:${minute}`;
+          },
     }
 
 };

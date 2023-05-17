@@ -8,7 +8,7 @@
       
       <ul>
           <li v-for="diary in (diary_list[0] || []).reverse()" :key="diary.diary_id">
-            <router-link :to="`/diary-detail/${diary.diary_id}`">
+            <router-link :to="`/comment/${diary.diary_id}`">
               <p>{{ diary.diary_id }}</p>
               <h3>{{ diary.title }}</h3>
               <p>{{ diary.content }}</p>
