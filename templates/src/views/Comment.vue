@@ -32,7 +32,7 @@
                 </option>
               </select>
         </div>
-        <button class="button additional-button" style="margin-bottom: 30px;" :disabled="!selectedCharacter || !selectedPersonality" @click="submitForm">
+        <button class="button additional-button" style="margin-bottom: 30px;" :disabled="!selectedCharacter || !selectedPersonality" :style="{ opacity: (!selectedCharacter || !selectedPersonality) ? 0.5 : 1 }" @click="submitForm">
             Additional Button
         </button>
         <textarea class="comment" rows="5" readonly v-model="responseText"></textarea>
