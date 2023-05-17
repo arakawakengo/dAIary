@@ -10,9 +10,9 @@
     </div>
   </template>
   
-  <script>
-  import axios from "axios";
-  export default {
+<script>
+import axios from "axios";
+export default {
     data() {
       return {
         diaries: [],
@@ -21,7 +21,7 @@
     async created() {
       try {
         const token = localStorage.getItem("access");
-        const response = await axios.get("/api/diaries/", {
+        const response = await axios.get("http://localhost:8000/api/diaries/", {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -33,5 +33,5 @@
       }
     },
   };
-  </script>
+</script>
   
