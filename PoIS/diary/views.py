@@ -37,7 +37,9 @@ class DiaryView(APIView):
     
     def post(self, request):
         serializer = self.serializer(data=request.data)
+        user = request.user
         if serializer.is_valid():
+            serializer.validated_data['user'] = user  # type: ignore
             diary = serializer.save()
             return Response(
                 {
