@@ -69,8 +69,10 @@ export default {
             const token = localStorage.getItem("access"); 
       
             const data = {
-              context : this.AIData[this.selectedCharacter][this.selectedPersonality],
-              diary_text: this.content
+              character: this.selectedCharacter,
+              personality: this.selectedPersonality,
+              context: this.AIData[this.selectedCharacter][this.selectedPersonality],
+              diary_text: this.content,
             };
       
             const headers = {
