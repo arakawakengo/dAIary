@@ -34,16 +34,21 @@
           Additional Button
       </button>
 
-      <div class="comment">
-        <h2>Comment List</h2>
+      
+      <h2>Comment List</h2>
+      <div class="comment_container">
         <ul>
             <li v-for="comment in (comments || []).reverse()" :key="comment.commentID">
-                <p>{{ comment.Select_Character_Role_ID}}</p>
-                <p>{{ comment.Select_Character_Disposition_ID }}</p>
+              <div class="comment">
                 <p>{{ comment.content }}</p>
+                <p>{{ comment.Select_Character_Disposition_ID }}{{ comment.Select_Character_Role_ID }}より</p>
                 <p>{{ formatDatetime(comment.created_at) }}</p>
+              </div>
             </li>
-          </ul>
+            <li v-if="comments.length==0">
+              <p>コメントがありません</p>
+            </li>
+        </ul>
       </div>
 
 
@@ -150,9 +155,10 @@ padding: 0;
 .container {
 height: 100vh;
 display: flex;
+align-items: flex-start;
 }
 .left-container {
-flex: 1;
+flex: 2;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -190,7 +196,7 @@ max-width: 300px; /* Set a maximum width */
 text-align: center;
 box-sizing: border-box;
 }
-.comment {
+.comment_container {
 margin-top: auto;
 margin-bottom: 20px;
 padding: 10px;
@@ -202,6 +208,14 @@ max-width: 600px;
 resize: vertical;
 background-color: #F1F1F1;
 pointer-events: none;
+}
+.comment {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
 }
 .form {
 display: flex;
