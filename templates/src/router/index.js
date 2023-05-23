@@ -36,7 +36,7 @@ const routes = [
     component: DiaryList,
   },
   {
-    path: "/diary-detail",
+    path: "/diary-detail/:diary_id",
     name: "DiaryDetail",
     component: DiaryDetail,
   },

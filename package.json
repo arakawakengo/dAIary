@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "element-ui": "^2.15.13",
+    "vue": "^3.3.2",
     "vue-resource": "^1.5.3"
   }
 }
