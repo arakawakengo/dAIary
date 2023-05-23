@@ -34,16 +34,21 @@
           Additional Button
       </button>
 
-      <div class="comment">
-        <h2>Comment List</h2>
+      
+      <h2>Comment List</h2>
+      <div class="comment_container">
         <ul>
-            <li v-for="comment in (comments || []).reverse()" :key="comment.commentID">
-                <p>{{ comment.Select_Character_Role_ID}}</p>
-                <p>{{ comment.Select_Character_Disposition_ID }}</p>
+            <li v-for="comment in (comments || [])" :key="comment.commentID">
+              <div class="comment">
                 <p>{{ comment.content }}</p>
+                <p>{{ comment.Select_Character_Disposition_ID }}{{ comment.Select_Character_Role_ID }}より</p>
                 <p>{{ formatDatetime(comment.created_at) }}</p>
+              </div>
             </li>
-          </ul>
+            <li v-if="comments.length==0">
+              <p>コメントがありません</p>
+            </li>
+        </ul>
       </div>
 
 
@@ -101,7 +106,7 @@ export default {
           axios.post(url, data, { headers })
             .then(response => {
               this.responseText = response.data["response"];
-              window.location.reload();
+              this.$router.go({path: this.$router.currentRoute.path, force: true})
             })
             .catch(() => {
               this.responseText = "エラーが発生しました。";
@@ -122,7 +127,6 @@ export default {
               'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         const rawRes = toRaw(response.data);
         const jsonString = JSON.stringify(rawRes);
         this.diary = JSON.parse(jsonString);
@@ -135,9 +139,7 @@ export default {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         this.comments = response.data.diary_comment_list;
-        console.log(response.data);
       },
   }
 };
@@ -151,6 +153,7 @@ padding: 0;
 .container {
 height: 100vh;
 display: flex;
+align-items: flex-start;
 }
 .left-container {
 flex: 1;
@@ -191,7 +194,7 @@ max-width: 300px; /* Set a maximum width */
 text-align: center;
 box-sizing: border-box;
 }
-.comment {
+.comment_container {
 margin-top: auto;
 margin-bottom: 20px;
 padding: 10px;
@@ -203,6 +206,14 @@ max-width: 600px;
 resize: vertical;
 background-color: #F1F1F1;
 pointer-events: none;
+}
+.comment {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
 }
 .form {
 display: flex;

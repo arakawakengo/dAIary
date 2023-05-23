@@ -2,9 +2,7 @@
   <div>
     <Header />
     <h1>Dashboard</h1>
-    <p>Welcome, you are logged in!</p>
     <div class="diary-list">
-      <h2>Diary List</h2>
       
       <ul>
           <li v-for="diary in (diary_list[0] || []).reverse()" :key="diary.diary_id">
