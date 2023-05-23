@@ -38,7 +38,7 @@
       <h2>Comment List</h2>
       <div class="comment_container">
         <ul>
-            <li v-for="comment in (comments || []).reverse()" :key="comment.commentID">
+            <li v-for="comment in (comments || [])" :key="comment.commentID">
               <div class="comment">
                 <p>{{ comment.content }}</p>
                 <p>{{ comment.Select_Character_Disposition_ID }}{{ comment.Select_Character_Role_ID }}より</p>
@@ -106,6 +106,7 @@ export default {
           axios.post(url, data, { headers })
             .then(response => {
               this.responseText = response.data["response"];
+              this.$router.go({path: this.$router.currentRoute.path, force: true})
             })
             .catch(() => {
               this.responseText = "エラーが発生しました。";
@@ -126,7 +127,6 @@ export default {
               'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         const rawRes = toRaw(response.data);
         const jsonString = JSON.stringify(rawRes);
         this.diary = JSON.parse(jsonString);
@@ -139,9 +139,7 @@ export default {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         this.comments = response.data.diary_comment_list;
-        console.log(response.data);
       },
   }
 };
@@ -158,7 +156,7 @@ display: flex;
 align-items: flex-start;
 }
 .left-container {
-flex: 2;
+flex: 1;
 display: flex;
 flex-direction: column;
 justify-content: center;
