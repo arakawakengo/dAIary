@@ -19,7 +19,7 @@ class ChatGPTView(APIView):
             {"role": "user", "content": request.data["content"]},
         ]
         
-        response = openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(\
             model="gpt-3.5-turbo",
             messages=messages,
             temperature=0.3,

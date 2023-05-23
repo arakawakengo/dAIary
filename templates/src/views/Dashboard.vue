@@ -43,8 +43,11 @@ export default {
           'Authorization': `Bearer ${token}`,
         },
       });
-      this.diary_list.push(response.data.diary_list)
-      console.log(this.diary_list)
+      this.diary_list.push(response.data.diary_list);
+      this.diary_list[0].forEach(diary => {
+        diary.content = diary.content.replace(/\\n/g, "\n");
+      });      
+      console.log(this.diary_list[0]);
     } catch (error) {
       console.error("Failed to fetch diaries.");
       console.error(error);
