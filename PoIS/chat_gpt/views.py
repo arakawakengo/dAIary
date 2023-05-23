@@ -13,17 +13,8 @@ dotenv.load_dotenv(dotenv_path)
 API_KEY = os.environ.get("API_KEY")
 
 class ChatGPTView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
     def post(self, request):
         openai.api_key = API_KEY
-        #response = openai.Completion.create(
-        #    engine="text-davinci-003",
-        #    prompt=request.data["diary_text"],
-        #    temperature=0.5,
-        #    max_tokens=100
-        #)
-        #return Response({"response": response.choices[0].text.strip()}, status=status.HTTP_200_OK)
 
         messages = [
             {"role": "system", "content": request.data["context"]},

@@ -16,7 +16,7 @@ git clone https://github.com/arakawakengo/kyodai_flea_market_app.git
 * [Setting Django](Guidance/django.md)
 * [Setting Vue](Guidance/Vue.md)
 
-## 关于公文文件目录的说明
+## Introduce the public Path
 ### This is project path that all the top level
 ```shell
 workspace/kyodai_flea_market_app
