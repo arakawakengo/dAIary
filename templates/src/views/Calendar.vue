@@ -27,7 +27,7 @@
           v-for="(day, index) in week"
           :key="index"
         >
-          <div class="calendar-day">
+          <div class="calendar-day" :class="{ 'today': isToday(day) }">
             {{ day.day }}
           </div>
           <div v-for="dayEvent in day.dayEvents" :key="dayEvent.id" >
@@ -77,7 +77,7 @@ components:{
           name: diary.title,
           start: this.formatDate(diary.created_at),
           end: this.formatDate(diary.created_at),
-          color: "teal"
+          color: "#2C7CFF"
         });
       });
 
@@ -151,6 +151,9 @@ components:{
       const day = ("0" + date.getDate()).slice(-2);
       return `${year}-${month}-${day}`;
     },
+    isToday(day) {
+      return moment().format("YYYY-MM-DD") === day.month + "-" + ("0" + day.day).slice(-2);
+    },
   },
   computed: {
     calendars() {
@@ -195,6 +198,9 @@ components:{
   border-right:1px solid #E0E0E0;
   border-bottom:1px solid #E0E0E0;
   margin-right:-1px;
+}
+.today {
+  background-color: #D6FF58; 
 }
 .calendar-day{
   text-align: center;

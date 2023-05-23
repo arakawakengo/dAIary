@@ -14,6 +14,9 @@
             <textarea id="content" name="content" readonly v-model="diary.content"></textarea>
             <p>{{ formatDatetime(diary.created_at) }}</p>
           </form>
+          <button class="button delete-button" style="margin-bottom: 15px;" @click="deleteDiary">
+            Delete diary
+          </button>
         </div>
       <div class="right-container">
         <div class="dropdown-container">
@@ -30,9 +33,12 @@
               </option>
             </select>
       </div>
-      <button class="button additional-button" style="margin-bottom: 30px;" :disabled="!selectedCharacter || !selectedPersonality" :style="{ opacity: (!selectedCharacter || !selectedPersonality) ? 0.5 : 1 }" @click="submitForm">
-          Additional Button
+      <button class="button additional-button" style="margin-bottom: 15px;" :disabled="!selectedCharacter || !selectedPersonality" :style="{ opacity: (!selectedCharacter || !selectedPersonality) ? 0.5 : 1 }" @click="submitForm">
+          Receive comment
       </button>
+
+      <p v-if="pushed_buttun" style="margin-bottom: 15px;" >AIがコメントを生成中です <span>{{ ellipsis }}</span> </p>
+      
 
       
       <h2>Comment List</h2>
@@ -76,6 +82,8 @@ export default {
         selectedPersonality: "",
         responseText: "",
         comments: [],
+        pushed_buttun: false,
+        ellipsis: '',
       };
   },
   async created() {
@@ -91,6 +99,14 @@ export default {
   },
   methods: {
       submitForm() {
+          this.pushed_buttun = true;
+
+          var dotCount = 0;
+          setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            this.ellipsis = '.'.repeat(dotCount);
+        }, 500);
+
           const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access");
           const data = {
@@ -140,6 +156,15 @@ export default {
           },
         });
         this.comments = response.data.diary_comment_list;
+      },
+    async deleteDiary() {
+        const token = localStorage.getItem("access");
+        await axios.delete(`http://localhost:8000/api/diaries/${this.diary_id}/`, {
+          headers: {
+              'Authorization': `Bearer ${token}`,
+          },
+        });
+        this.$router.push('/calendar');
       },
   }
 };
@@ -193,6 +218,16 @@ width: 100%; /* Make button wider */
 max-width: 300px; /* Set a maximum width */
 text-align: center;
 box-sizing: border-box;
+}
+.delete-button {
+padding: 5px 10px; 
+font-size: 13px;
+border: none;
+border-radius: 1px;
+background-color: #F1F1F1;
+width: 100%; 
+max-width: 200px; 
+text-align: center;
 }
 .comment_container {
 margin-top: auto;
