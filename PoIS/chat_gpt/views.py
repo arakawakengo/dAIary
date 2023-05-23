@@ -1,8 +1,6 @@
 import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import os
 import dotenv
@@ -18,7 +16,7 @@ class ChatGPTView(APIView):
 
         messages = [
             {"role": "system", "content": request.data["context"]},
-            {"role": "user", "content": request.data["diary_text"]},
+            {"role": "user", "content": request.data["content"]},
         ]
         
         response = openai.ChatCompletion.create(
