@@ -1,6 +1,8 @@
 import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import os
 import dotenv
@@ -11,6 +13,8 @@ dotenv.load_dotenv(dotenv_path)
 API_KEY = os.environ.get("API_KEY")
 
 class ChatGPTView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         openai.api_key = API_KEY
         #response = openai.Completion.create(
