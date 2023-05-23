@@ -24,7 +24,6 @@ class DiaryView(APIView):
     # permission_classes = [IsAuthenticated]　# 認証周りを擦り合わせる必要あり
 
     def get(self, request):
-        user = request.user
         diary_list = Diary.objects.all()
         # diary_list = Diary.objects.filter(user=user) # あとで自分のだけにする
         return Response(
@@ -45,7 +44,9 @@ class DiaryView(APIView):
 
     def post(self, request):
         serializer = self.serializer(data=request.data)
+        user = request.user
         if serializer.is_valid():
+            serializer.validated_data['user'] = user  # type: ignore
             diary = serializer.save()
             return Response(
                 {
