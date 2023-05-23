@@ -29,5 +29,7 @@ class ObtainTokenView(generics.GenericAPIView):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             })
+        elif not user:
+            return Response({"error": "Invalid e-mail address"}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"error": "Incorrect password"}, status=status.HTTP_401_UNAUTHORIZED)
