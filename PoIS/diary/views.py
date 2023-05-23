@@ -21,8 +21,6 @@ def commentGenerate(data):
     }
 
     response = requests.post(url, Message)
-    print("")
-    print(response)
 
     return response.json()["response"]
 
