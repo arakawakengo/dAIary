@@ -1,5 +1,4 @@
 <template>
-
   <div class="upload">
   <Header/>
       <head>
@@ -11,13 +10,11 @@
           <form class="form">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" readonly v-model="diary.title">
-
             <label for="content">Content:</label>
             <textarea id="content" name="content" readonly v-model="diary.content"></textarea>
             <p>{{ formatDatetime(diary.created_at) }}</p>
           </form>
         </div>
-
       <div class="right-container">
         <div class="dropdown-container">
           <select class="dropdown" v-model="selectedCharacter">
@@ -37,32 +34,30 @@
           Additional Button
       </button>
 
-        <div class="comment">
-          <h2>Comment List</h2>
-          <ul>
-              <li v-for="comment in (comments[0] || []).reverse()" :key="comment.comment_id">
-                  <p>{{ comment.Select_Character_Role}}</p>
-                  <p>{{ comment.Select_Character_Disposition }}</p>
-                  <p>{{ comment.content }}</p>
-                  <p>{{ formatDatetime(comment.created_at) }}</p>
-              </li>
-            </ul>
-        </div>
+      <div class="comment">
+        <h2>Comment List</h2>
+        <ul>
+            <li v-for="comment in (comments || []).reverse()" :key="comment.commentID">
+                <p>{{ comment.Select_Character_Role_ID}}</p>
+                <p>{{ comment.Select_Character_Disposition_ID }}</p>
+                <p>{{ comment.content }}</p>
+                <p>{{ formatDatetime(comment.created_at) }}</p>
+            </li>
+          </ul>
+      </div>
 
-      <textarea class="comment" rows="5" readonly v-model="responseText"></textarea>
+
       </div>
     </div>
     </body>
   </div>
 </template>
-
 <script>
 import Header from "@/components/Header.vue";
 import AIData from "../assets/AI_data.json"
 import axios from "axios";
 import { toRaw } from 'vue';
 export default {
-
   name: "Comment",
   components:{
       Header
@@ -75,27 +70,24 @@ export default {
         selectedCharacter: "",
         selectedPersonality: "",
         responseText: "",
-        comments: []
+        comments: [],
       };
   },
   async created() {
     this.diary_id = this.$route.params.diary_id
     try {
         const token = localStorage.getItem("access");
-
         await Promise.all([this.getDiary(token, this.diary_id), this.getComments(token, this.diary_id)]);
-  
-        } catch (error) {
-            console.error("Failed to fetch diaries.");
-            console.error(error);
-            this.diary = this.sample;
-        }
+    } catch (error) {
+        console.error("Failed to fetch diaries.");
+        console.error(error);
+        this.diary = this.sample;
+    }
   },
   methods: {
       submitForm() {
-          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}/`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
-          const token = localStorage.getItem("access"); 
-    
+          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
+          const token = localStorage.getItem("access");
           const data = {
             diary_id: this.diary_id,
             Select_Character_Role: this.selectedCharacter,
@@ -103,37 +95,9 @@ export default {
             context: this.AIData[this.selectedCharacter][this.selectedPersonality],
             content: this.diary.content,
           };
-    
           const headers = {
             Authorization: `Bearer ${token}`
           };
-    
-          axios.post(url, data, { headers })
-            .then(response => {
-              this.responseText = response.data["response"];
-              window.location.reload();
-            })
-            .catch(() => {
-              this.responseText = "エラーが発生しました。";
-            });
-            
-        },
-      postComment() {
-          const url = "http://localhost:8000/api/diaries/CommentView"; 
-          const token = localStorage.getItem("access"); 
-    
-          const data = {
-            diary_id: this.diary_id,
-            character: this.selectedCharacter,
-            personality: this.selectedPersonality,
-            context: this.AIData[this.selectedCharacter][this.selectedPersonality],
-            content: this.diary.content,
-          };
-    
-          const headers = {
-            Authorization: `Bearer ${token}`
-          };
-    
           axios.post(url, data, { headers })
             .then(response => {
               this.responseText = response.data["response"];
@@ -143,16 +107,16 @@ export default {
             });
         },
       formatDatetime(datetime) {
-          const date = new Date(datetime);
-          const year = date.getFullYear();
-          const month = ("0" + (date.getMonth() + 1)).slice(-2);
-          const day = ("0" + date.getDate()).slice(-2);
-          const hour = ("0" + date.getHours()).slice(-2);
-          const minute = ("0" + date.getMinutes()).slice(-2);
-          return `${year}-${month}-${day} ${hour}:${minute}`;
-        },
-      getDiary(token, diary_id) {
-        const response = axios.get(`http://localhost:8000/api/diaries/${diary_id}`, {
+        const date = new Date(datetime);
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        const hour = ("0" + date.getHours()).slice(-2);
+        const minute = ("0" + date.getMinutes()).slice(-2);
+        return `${year}-${month}-${day} ${hour}:${minute}`;
+      },
+    async getDiary(token, diary_id) {
+        const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}/`, {
           headers: {
               'Authorization': `Bearer ${token}`,
           },
@@ -163,35 +127,30 @@ export default {
         this.diary = JSON.parse(jsonString);
         this.diary.content = this.diary.content.replace(/\\n/g, "\n");
       },
-      getComments (token, diary_id) {
-        const response = axios.get(`http://localhost:8000/api/diaries/CommentView/${diary_id}`, {
+        
+    async getComments (token, diary_id) {
+        const response = await axios.get(`http://localhost:8000/api/diaries/CommentView/${diary_id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
         });
-        this.comments = response.data;
+        console.log(response.data);
+        this.comments = response.data.diary_comment_list;
         console.log(response.data);
       },
-
   }
-
 };
 </script>
-
-
 <style scoped>
-
 body {
 font-family: Arial, sans-serif;
 margin: 0;
 padding: 0;
 }
-
 .container {
 height: 100vh;
 display: flex;
 }
-
 .left-container {
 flex: 1;
 display: flex;
@@ -199,7 +158,6 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 }
-
 .right-container {
 flex: 1;
 display: flex;
@@ -207,35 +165,31 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 }
-
 .dropdown-container {
 display: flex;
 flex-direction: column;
 align-items: center;
 margin-top: 50px; /* Adjusted margin */
 }
-
 .dropdown {
 margin-bottom: 20px;
 padding: 10px 20px;
 font-size: 16px;
 border: none;
 border-radius: 4px;
-background-color: #f1f1f1;
+background-color: #F1F1F1;
 }
-
 .additional-button {
 padding: 15px 30px; /* Increased padding */
 font-size: 18px; /* Increased font size */
 border: none;
 border-radius: 4px;
-background-color: #f1f1f1;
+background-color: #F1F1F1;
 width: 100%; /* Make button wider */
 max-width: 300px; /* Set a maximum width */
 text-align: center;
 box-sizing: border-box;
 }
-
 .comment {
 margin-top: auto;
 margin-bottom: 20px;
@@ -246,10 +200,9 @@ border-radius: 4px;
 width: 92%;
 max-width: 600px;
 resize: vertical;
-background-color: #f1f1f1;
+background-color: #F1F1F1;
 pointer-events: none;
 }
-
 .form {
 display: flex;
 flex-direction: column;
@@ -257,12 +210,10 @@ align-items: flex-start;
 width: 90%;
 max-width: 600px;
 }
-
 label {
 font-size: 18px;
 margin-top: 10px;
 }
-
 input[type="text"],
 textarea {
 padding: 5px;
@@ -275,14 +226,12 @@ resize: vertical;
 box-sizing: border-box;
 padding: 10px;
 font-family: Arial, sans-serif;
-background-color: #f1f1f1;
+background-color: #F1F1F1;
 pointer-events: none;
 }
-
 input[type="text"] {
 height: 70px;
 }
-
 textarea {
 height: 550px;
 }
