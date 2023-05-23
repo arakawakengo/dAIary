@@ -1,8 +1,6 @@
 import openai
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 import os
 import dotenv
@@ -13,8 +11,6 @@ dotenv.load_dotenv(dotenv_path)
 API_KEY = os.environ.get("API_KEY")
 
 class ChatGPTView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
     def post(self, request):
         openai.api_key = API_KEY
         #response = openai.Completion.create(
@@ -30,7 +26,7 @@ class ChatGPTView(APIView):
             {"role": "user", "content": request.data["diary_text"]},
         ]
         
-        response = openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(\
             model="gpt-3.5-turbo",
             messages=messages,
             temperature=0.3,
