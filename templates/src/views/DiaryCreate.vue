@@ -83,13 +83,16 @@ export default {
 }
 
 .create-form {
-  background-color: #fff;
-  padding: 3rem;
+  background-color: #ffffff;
+  padding: 2rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
+  width: 80%;
+  height: 100%;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .create-heading {
@@ -117,12 +120,12 @@ export default {
 }
 
 .text-input{
-  height: 200px;
+  height: 500px;
   resize: vertical;
 }
 
 .create-button {
-  background-color: #000;
+  background-color: #000000;
   color: #fff;
   border: none;
   border-radius: 0.25rem;
