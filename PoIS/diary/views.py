@@ -7,7 +7,6 @@ from .models import Diary, DiaryComment
 from .serializers import DiarySerializer, DiaryCommentSerializer
 import requests
 import json
-from django.http import HttpResponse
 
 
 def commentGenerate(data):
@@ -15,7 +14,6 @@ def commentGenerate(data):
     url = 'http://localhost:8000/api/comment/'
     diary = Diary.objects.get(diary_id=data.get("diary_id"))
     context = data.get("context")
-    
 
     Message = {
         'content': diary.content,
@@ -23,7 +21,6 @@ def commentGenerate(data):
     }
 
     response = requests.post(url, Message)
-    # print(response.json())
 
     return response.json()["response"]
 
