@@ -5,7 +5,7 @@ from .models import Diary, DiaryComment
 class DiarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Diary
-        fields = ('id', 'user', 'title', 'content', 'created_at', 'updated_at')
+        fields = ('user', 'title', 'content', 'created_at')
 
 
 class DiaryCommentSerializer(serializers.ModelSerializer):
