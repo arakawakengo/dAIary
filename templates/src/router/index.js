@@ -5,7 +5,7 @@ import Dashboard from '../views/Dashboard.vue'
 import DiaryCreate from "../views/DiaryCreate";
 import DiaryList from "../views/DiaryList";
 import DiaryDetail from "../views/DiaryDetail"
-import Profile from "../views/Profile"
+//import Profile from "../views/Profile"
 import Calendar from"../views/Calendar"
 import Comment from "../views/Comment"
 //import UpLoad from "@/views/UpLoad.vue";
@@ -42,11 +42,11 @@ const routes = [
     name: "DiaryDetail",
     component: DiaryDetail,
   },
-  {
-    path: "/profile",
-    name: "Profile",
-    component: Profile,
-  },
+  //{
+  //  path: "/profile",
+  //  name: "Profile",
+  //  component: Profile,
+  //},
   {
     path: "/calendar",
     name: "Calendar",
