@@ -68,7 +68,7 @@ export default {
     this.diary_id = this.$route.params.diary_id
     try {
         const token = localStorage.getItem("access");
-        const response = await axios.get(`http://localhost:8000/api/diaries/${this.diary_id}`, {
+        const response = await axios.get(`http://localhost:8000/api/diaries/${this.diary_id}/`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
       submitForm() {
-          const url = "http://localhost:8000/api/diaries/CommentView"; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
+          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access"); 
     
           const data = {

@@ -23,7 +23,7 @@ def commentGenerate(data):
     }
 
     response = requests.post(url, Message)
-    print(response.json())
+    # print(response.json())
 
     return response.json()["response"]
 
@@ -96,14 +96,14 @@ class DiaryCommentView(APIView):
             status=status.HTTP_200_OK
         )
 
-    def post(self, request):
+    def post(self, request, diary_id):
         # 调用ChatGPT方法生成评论之后，序列化之后存储数据
         temp = request.data
         res = commentGenerate(temp)
         temp['content'] = res
         serializer = self.serializer(data=temp)
         if serializer.is_valid():
-            serializer.validated_data['diaryObject'] = Diary.objects.get(diary_id=temp.get("diary_id"))  # type: ignore
+            serializer.validated_data['diaryObject'] = Diary.objects.get(diary_id=diary_id)  # type: ignore
             comment = serializer.save()
             return Response(
                 {
