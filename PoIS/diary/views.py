@@ -22,7 +22,10 @@ def commentGenerate(data):
 
     response = requests.post(url, Message)
 
-    return response.json()["response"]
+    try:
+        return response.json()["response"]
+    except KeyError:
+        return {"response": "エラーです"}
 
 
 class DiaryView(APIView):

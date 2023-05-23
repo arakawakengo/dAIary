@@ -18,11 +18,12 @@ class ChatGPTView(APIView):
             {"role": "system", "content": request.data["context"]},
             {"role": "user", "content": request.data["content"]},
         ]
-        
-        response = openai.ChatCompletion.create(\
-            model="gpt-3.5-turbo",
-            messages=messages,
-            temperature=0.3,
-        )
-
-        return Response({"response": response['choices'][0]['message']['content'].strip()}, status=status.HTTP_200_OK)
+        try:
+            response = openai.ChatCompletion.create(\
+                model="gpt-3.5-turbo",
+                messages=messages,
+                temperature=0.3,
+            )
+            return Response({"response": response['choices'][0]['message']['content'].strip()}, status=status.HTTP_200_OK) # type: ignore
+        except Exception as e:
+            return Response({"error": "An unexpected error occurred: " + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
