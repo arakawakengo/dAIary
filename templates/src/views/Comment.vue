@@ -49,7 +49,6 @@
         </div>
 
       <textarea class="comment" rows="5" readonly v-model="responseText"></textarea>
-
       </div>
     </div>
     </body>
@@ -65,7 +64,7 @@ import { toRaw } from 'vue';
 
 
 export default {
-  name: "ComMent",
+  name: "Comment",
   components:{
       Header
   },
