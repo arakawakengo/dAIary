@@ -15,7 +15,7 @@ class Diary(models.Model):
 
 class DiaryComment(models.Model):
     commentID = models.AutoField(primary_key=True)
-    diaryID = models.ForeignKey(Diary, on_delete=models.CASCADE)
+    diaryObject = models.ForeignKey(Diary, on_delete=models.CASCADE)
     Select_Character_Role = models.IntegerField()
     Select_Character_Disposition = models.IntegerField()
     content = models.TextField()

@@ -63,8 +63,7 @@ class DiaryView(APIView):
 def commentGenerate(data):
 
     url = 'http://localhost:8000/api/comment/'
-    diary = Diary.objects.get(diary_id=data.get('diaryID'))
-    print(diary)
+    diary = Diary.objects.get(diary_id=data.get('diaryObject'))
     content = diary.content
     Select_Character_Role = data.get('Select_Character_Role')
     Select_Character_Disposition = data.get('Select_Character_Disposition')
@@ -77,7 +76,7 @@ def commentGenerate(data):
 
     response = requests.post(url, data=json.dumps(Message))
 
-    return response.json()["response"]
+    return response.json()['detail']
 
 class DiaryCommentView(APIView):
     serializer = DiaryCommentSerializer
@@ -89,9 +88,9 @@ class DiaryCommentView(APIView):
                 "diary_comment_list": [
                     {
                         'commentID': comment.commentID,
-                        'diaryID': comment.diaryId,
-                        'Select_Character_Role_ID': comment.Select_Character_Role_ID,
-                        'Select_Character_Disposition_ID': comment.Select_Character_Disposition_ID,
+                        'diaryID': comment.diaryObject.diary_id,
+                        'Select_Character_Role_ID': comment.Select_Character_Role,
+                        'Select_Character_Disposition_ID': comment.Select_Character_Disposition,
                         'content': comment.content,
                         'created_at': comment.created_at
                     }
@@ -112,7 +111,7 @@ class DiaryCommentView(APIView):
             return Response(
                 {
                     "commentID": comment.commentID,
-                    "diaryID": comment.diaryId,
+                    "diaryID": comment.diaryObject.diary_id,
                     "Select_Character_Role": comment.Select_Character_Role,
                     "Select_Character_Disposition": comment.Select_Character_Disposition,
                     "content": comment.content,
