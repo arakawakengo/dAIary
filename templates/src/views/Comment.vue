@@ -37,7 +37,7 @@
           Receive comment
       </button>
 
-      <p v-if="pushed_buttun" style="margin-bottom: 15px;" >AIがコメントを生成中です <span>{{ ellipsis }}</span> </p>
+      <p v-if="beGeneratingComment" style="margin-bottom: 15px;" >AIがコメントを生成中です <span>{{ ellipsis }}</span> </p>
       
 
       
@@ -82,7 +82,7 @@ export default {
         selectedPersonality: "",
         responseText: "",
         comments: [],
-        pushed_buttun: false,
+        beGeneratingComment: false,
         ellipsis: '',
       };
   },
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
       submitForm() {
-          this.pushed_buttun = true;
+          this.beGeneratingComment = true;
 
           var dotCount = 0;
           setInterval(() => {
