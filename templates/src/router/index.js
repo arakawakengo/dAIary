@@ -6,6 +6,7 @@ import DiaryCreate from "../views/DiaryCreate";
 import DiaryList from "../views/DiaryList";
 import DiaryDetail from "../views/DiaryDetail"
 import Profile from "../views/Profile"
+import Calendar from"../views/Calendar"
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/calendar",
+    name: "Calendar",
+    component: Calendar,
   }
 ]
 
