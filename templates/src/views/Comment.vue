@@ -1,4 +1,5 @@
 <template>
+
   <div class="upload">
   <Header/>
       <head>
@@ -57,13 +58,11 @@
 
 <script>
 import Header from "@/components/Header.vue";
-import AIData from '@/assets/AI_data.json';
-import sample_diary from '@/assets/diary_sample.json';
+import AIData from "../assets/AI_data.json"
 import axios from "axios";
 import { toRaw } from 'vue';
-
-
 export default {
+
   name: "Comment",
   components:{
       Header
@@ -72,7 +71,6 @@ export default {
       return {
         diary_id: "",
         diary: [],
-        sample: sample_diary,
         AIData: AIData,
         selectedCharacter: "",
         selectedPersonality: "",
@@ -81,8 +79,8 @@ export default {
       };
   },
   async created() {
+    this.diary_id = this.$route.params.diary_id
     try {
-        const diary_id = this.$route.params.diary_id
         const token = localStorage.getItem("access");
 
         await Promise.all([this.getDiary(token, diary_id), this.getComments(token, diary_id)]);
@@ -95,13 +93,13 @@ export default {
   },
   methods: {
       submitForm() {
-          const url = "http://localhost:8000/api/comment/"; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
+          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access"); 
     
           const data = {
             diary_id: this.diary_id,
-            character: this.selectedCharacter,
-            personality: this.selectedPersonality,
+            Select_Character_Role: this.selectedCharacter,
+            Select_Character_Disposition: this.selectedPersonality,
             context: this.AIData[this.selectedCharacter][this.selectedPersonality],
             content: this.diary.content,
           };
@@ -182,6 +180,7 @@ export default {
 
 
 <style scoped>
+
 body {
 font-family: Arial, sans-serif;
 margin: 0;
