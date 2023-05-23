@@ -7,6 +7,8 @@ import DiaryList from "../views/DiaryList";
 import DiaryDetail from "../views/DiaryDetail"
 import Profile from "../views/Profile"
 import Comment from "../views/Comment"
+import UpLoad from "@/views/UpLoad.vue";
+import ComMent from "@/views/ComMent.vue";
 
 const routes = [
   {
@@ -48,6 +50,15 @@ const routes = [
     path: "/comment/:diary_id",
     name: "Comment",
     component: Comment,
+  },
+    path:"/upload",
+    name:"UpLoad",
+    component: UpLoad,
+  },
+  {
+    path:"/comment",
+    name:"ComMent",
+    component: ComMent,
   }
 ]
 
