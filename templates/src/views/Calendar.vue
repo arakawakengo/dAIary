@@ -26,6 +26,13 @@
           <div class="calendar-day">
             {{ day.day }}
           </div>
+          <div v-for="dayEvent in day.dayEvents" :key="dayEvent.id" >
+    <div 
+      class="calendar-event"
+      :style="`background-color:${dayEvent.color}`" >
+      {{ dayEvent.name }}
+    </div>
+  </div>
         </div>
       </div>
     </div>
@@ -38,6 +45,9 @@ export default {
   data() {
     return {
       currentDate: moment(),
+      events:[
+  { id: 1, name: "ミーティング", start: "2023-05-04", end:"2023-05-05", color:"blue"},
+  ]
     };
   },
   methods: {
@@ -53,6 +63,14 @@ export default {
       const youbiNum = date.day();
       return date.add(6 - youbiNum, "days");
     },
+    getDayEvents(date){
+      return this.events.filter(event => {
+      let startDate = moment(event.start).format('YYYY-MM-DD')
+      let endDate = moment(event.end).format('YYYY-MM-DD')
+      let Date = date.format('YYYY-MM-DD')
+      if(startDate <= Date && endDate >= Date) return true;
+     });
+    },
     getCalendar() {
       let startDate = this.getStartDate();
       const endDate = this.getEndDate();
@@ -64,9 +82,11 @@ export default {
       for (let week = 0; week < weekNumber; week++) {
         let weekRow = [];
         for (let day = 0;  day < 7; day++) {
+          let dayEvents = this.getDayEvents(calendarDate)
           weekRow.push({
             day: calendarDate.get("date"),
             month: calendarDate.format("YYYY-MM"),
+            dayEvents
           });
           calendarDate.add(1, "days");
         }
@@ -96,6 +116,7 @@ export default {
     return this.currentDate.format('YYYY-MM')
     },
   },
+  
 }
 </script>
 
@@ -139,5 +160,11 @@ export default {
 }
 .outside{
   background-color: #f7f7f7;
+}
+.calendar-event{
+  color:white;
+  margin-bottom:1px;
+  height:50px;
+  line-height:25px;
 }
 </style>
