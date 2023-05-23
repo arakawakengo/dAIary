@@ -83,7 +83,7 @@ export default {
     try {
         const token = localStorage.getItem("access");
 
-        await Promise.all([this.getDiary(token, diary_id), this.getComments(token, diary_id)]);
+        await Promise.all([this.getDiary(token, this.diary_id), this.getComments(token, this.diary_id)]);
   
         } catch (error) {
             console.error("Failed to fetch diaries.");
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
       submitForm() {
-          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
+          const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}/`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access"); 
     
           const data = {
