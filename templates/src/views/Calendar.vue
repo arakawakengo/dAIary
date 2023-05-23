@@ -1,6 +1,9 @@
 <template>
   <div class="content">
-    <h2>カレンダー{{ displayDate }}</h2>
+    <Header/>
+
+
+    <h2 class="calendar-title">{{ displayDate }}</h2>
     <div class="button-area">
       <button @click="prevMonth" class="button">前の月</button>
       <button @click="nextMonth" class="button">次の月</button>
@@ -40,13 +43,18 @@
 </template>
 
 <script>
+import Header from "../components/Header.vue";
 import moment from "moment";
 export default {
+name: "Calendar",
+components:{
+    Header
+},
   data() {
     return {
       currentDate: moment(),
       events:[
-  { id: 1, name: "ミーティング", start: "2023-05-04", end:"2023-05-05", color:"blue"},
+  { id: 1, name: "今日の日記", start: "2023-05-04", end:"2023-05-04", color:"blue"},
   ]
     };
   },
@@ -123,7 +131,7 @@ export default {
 <style>
 .content{
   margin:2em auto;
-  width:900px;
+  width:100%;
 }
 .button-area{
   margin:0.5em 0;
@@ -133,7 +141,7 @@ export default {
   margin-right:8px;
 }
 .calendar{
-  max-width:900px;
+  max-width:100%;
   border-top:1px solid #E0E0E0;
   font-size:0.8em;
 }
@@ -166,5 +174,20 @@ export default {
   margin-bottom:1px;
   height:50px;
   line-height:25px;
+}
+.calendar-title {
+  font-family: sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+.calendar-event{
+  color:white;
+  margin-bottom:1px;
+  height:50px;
+  line-height:25px;
+  position: relative;
+  z-index:1;
+  border-radius:4px;
+  padding-left:4px;
 }
 </style>
