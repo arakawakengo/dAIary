@@ -6,6 +6,7 @@
     <h2 class="calendar-title">{{ displayDate }}</h2>
     <div class="button-area">
       <button @click="prevMonth" class="button">前の月</button>
+      <button @click="thisMonth" class="button">今月</button>
       <button @click="nextMonth" class="button">次の月</button>
     </div>
     <div class="calendar">
@@ -30,12 +31,14 @@
             {{ day.day }}
           </div>
           <div v-for="dayEvent in day.dayEvents" :key="dayEvent.id" >
-    <div 
-      class="calendar-event"
-      :style="`background-color:${dayEvent.color}`" >
-      {{ dayEvent.name }}
-    </div>
-  </div>
+            <router-link :to="`/comment/${dayEvent.id}`">
+            <div 
+              class="calendar-event"
+              :style="`background-color:${dayEvent.color}`" >
+                {{ dayEvent.name }}
+              </div>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -45,6 +48,7 @@
 <script>
 import Header from "../components/Header.vue";
 import moment from "moment";
+import axios from 'axios';
 export default {
 name: "Calendar",
 components:{
@@ -53,10 +57,35 @@ components:{
   data() {
     return {
       currentDate: moment(),
-      events:[
-  { id: 1, name: "今日の日記", start: "2023-05-04", end:"2023-05-04", color:"blue"},
-  ]
+      events:[],
+      diary_list: [],
     };
+  },
+  async created() {
+    try {
+      const token = localStorage.getItem("access");
+      const response = await axios.get("http://localhost:8000/api/diaries/", {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      this.diary_list.push(response.data.diary_list);
+      await this.diary_list[0].forEach(diary => {
+        diary.content = diary.content.replace(/\\n/g, "\n");
+        this.events.push({
+          id: diary.diary_id,
+          name: diary.title,
+          start: this.formatDate(diary.created_at),
+          end: this.formatDate(diary.created_at),
+          color: "teal"
+        });
+      });
+
+      console.log(this.diary_list[0]);
+    } catch (error) {
+      console.error("Failed to fetch diaries.");
+      console.error(error);
+    }
   },
   methods: {
     getStartDate() {
@@ -108,9 +137,19 @@ components:{
     prevMonth() {
       this.currentDate = moment(this.currentDate).subtract(1, "month");
     },
+    thisMonth() {
+      this.currentDate = moment();
+    },
     youbi(dayIndex) {
     const week = ["日", "月", "火", "水", "木", "金", "土"];
     return week[dayIndex];
+    },
+    formatDate(datetime) {
+      const date = new Date(datetime);
+      const year = date.getFullYear();
+      const month = ("0" + (date.getMonth() + 1)).slice(-2);
+      const day = ("0" + date.getDate()).slice(-2);
+      return `${year}-${month}-${day}`;
     },
   },
   computed: {
@@ -169,12 +208,6 @@ components:{
 .outside{
   background-color: #f7f7f7;
 }
-.calendar-event{
-  color:white;
-  margin-bottom:1px;
-  height:50px;
-  line-height:25px;
-}
 .calendar-title {
   font-family: sans-serif;
   font-size: 2em;
@@ -183,8 +216,8 @@ components:{
 .calendar-event{
   color:white;
   margin-bottom:1px;
-  height:50px;
-  line-height:25px;
+  height:40px;
+  line-height:20px;
   position: relative;
   z-index:1;
   border-radius:4px;

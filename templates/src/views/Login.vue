@@ -9,7 +9,7 @@
       <div>
         <input v-model="email" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email" />
         <input v-model="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" type="password" placeholder="Password" />
-        <button @click="login" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+        <button @click="login" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
         <p v-if="loginFailed" class="text-center text-red-500">Login failed.</p>
       </div>
       <div class="text-sm">
@@ -50,7 +50,7 @@
     localStorage.setItem('access', response.data.access);
     localStorage.setItem('refresh', response.data.refresh);
 
-    this.$router.push('/dashboard');
+    this.$router.push('/calendar');
   } catch (error) {
     console.error('Login failed.');
     console.error(error.response.data);

@@ -101,6 +101,7 @@ export default {
           axios.post(url, data, { headers })
             .then(response => {
               this.responseText = response.data["response"];
+              window.location.reload();
             })
             .catch(() => {
               this.responseText = "エラーが発生しました。";
