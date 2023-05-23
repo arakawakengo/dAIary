@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import DiaryView, DiaryByIDView
-from . import views
+from .views import DiaryByIDView,  DiaryCommentView, DiaryView
 
 urlpatterns = [
     path('diaries/', DiaryView.as_view()),
-    path('diaries/<int:diary_id>', DiaryByIDView.as_view()),
-    path("gpt_test/", views.TestGPT, name="index"),
+    path('diaries/<int:diary_id>/', DiaryByIDView.as_view()),
+    path('diaries/CommentView/<int:diary_id>', DiaryCommentView.as_view()),
 ]

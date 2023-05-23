@@ -42,7 +42,7 @@ export default {
     try {
         const diary_id = this.$route.params.diary_id
         const token = localStorage.getItem("access");
-        const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}`, {
+        const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}/`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
