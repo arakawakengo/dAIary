@@ -6,7 +6,7 @@ import DiaryCreate from "../views/DiaryCreate";
 import DiaryList from "../views/DiaryList";
 import DiaryDetail from "../views/DiaryDetail"
 import Profile from "../views/Profile"
-import Calendar from"../views/calendar"
+import Calendar from"../views/Calendar"
 import Comment from "../views/Comment"
 //import UpLoad from "@/views/UpLoad.vue";
 //import ComMent from "@/views/ComMent.vue";

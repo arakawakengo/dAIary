@@ -18,8 +18,8 @@ class Diary(models.Model):
 class DiaryComment(models.Model):
     commentID = models.AutoField(primary_key=True)
     diaryObject = models.ForeignKey(Diary, on_delete=models.CASCADE)
-    Select_Character_Role = models.CharField()
-    Select_Character_Disposition = models.CharField()
+    Select_Character_Role = models.CharField(max_length=20)
+    Select_Character_Disposition = models.CharField(max_length=20)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

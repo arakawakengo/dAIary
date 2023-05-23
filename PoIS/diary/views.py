@@ -13,20 +13,19 @@ from django.http import HttpResponse
 def commentGenerate(data):
 
     url = 'http://localhost:8000/api/comment/'
-    diary = Diary.objects.get(diary_id=data.get('diaryObject'))
-    content = diary.content
-    Select_Character_Role = data.get('Select_Character_Role')
-    Select_Character_Disposition = data.get('Select_Character_Disposition')
+    diary = Diary.objects.get(diary_id=data.get("diary_id"))
+    context = data.get("context")
+    
 
     Message = {
-        'content': content,
-        'Select_Character_Role': Select_Character_Role,
-        'Select_Character_Disposition': Select_Character_Disposition
+        'content': diary.content,
+        'context': context
     }
 
-    response = requests.post(url, data=json.dumps(Message))
+    response = requests.post(url, Message)
+    print(response.json())
 
-    return response.json()['detail']
+    return response.json()["response"]
 
 
 class DiaryView(APIView):
@@ -76,8 +75,10 @@ class DiaryView(APIView):
 class DiaryCommentView(APIView):
     serializer = DiaryCommentSerializer
 
-    def get(self, request):
-        diary_comment_list = DiaryComment.objects.all()
+    def get(self, request, diary_id):
+        # diary_comment_list = DiaryComment.objects.all()
+
+        diary_comment_list = DiaryComment.objects.filter(diaryObject=diary_id)
         return Response(
             {
                 "diary_comment_list": [
@@ -102,6 +103,7 @@ class DiaryCommentView(APIView):
         temp['content'] = res
         serializer = self.serializer(data=temp)
         if serializer.is_valid():
+            serializer.validated_data['diaryObject'] = Diary.objects.get(diary_id=temp.get("diary_id"))  # type: ignore
             comment = serializer.save()
             return Response(
                 {

@@ -45,6 +45,9 @@
 
 <script>
 import Header from "@/components/Header.vue";
+import AIData from "../assets/AI_data.json"
+import axios from "axios";
+import { toRaw } from 'vue';
 export default {
 
   name: "Comment",
@@ -55,7 +58,6 @@ export default {
       return {
         diary_id: "",
         diary: [],
-        sample: sample_diary,
         AIData: AIData,
         selectedCharacter: "",
         selectedPersonality: "",
@@ -63,10 +65,10 @@ export default {
       };
   },
   async created() {
+    this.diary_id = this.$route.params.diary_id
     try {
-        const diary_id = this.$route.params.diary_id
         const token = localStorage.getItem("access");
-        const response = await axios.get(`http://localhost:8000/api/diaries/${diary_id}`, {
+        const response = await axios.get(`http://localhost:8000/api/diaries/${this.diary_id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -84,13 +86,13 @@ export default {
   },
   methods: {
       submitForm() {
-          const url = "http://localhost:8000/api/comment/"; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
+          const url = "http://localhost:8000/api/diaries/CommentView"; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access"); 
     
           const data = {
             diary_id: this.diary_id,
-            character: this.selectedCharacter,
-            personality: this.selectedPersonality,
+            Select_Character_Role: this.selectedCharacter,
+            Select_Character_Disposition: this.selectedPersonality,
             context: this.AIData[this.selectedCharacter][this.selectedPersonality],
             diary_text: this.diary.content,
           };
@@ -107,15 +109,15 @@ export default {
               this.responseText = "エラーが発生しました。";
             });
         },
-        formatDatetime(datetime) {
-          const date = new Date(datetime);
-          const year = date.getFullYear();
-          const month = ("0" + (date.getMonth() + 1)).slice(-2);
-          const day = ("0" + date.getDate()).slice(-2);
-          const hour = ("0" + date.getHours()).slice(-2);
-          const minute = ("0" + date.getMinutes()).slice(-2);
-          return `${year}-${month}-${day} ${hour}:${minute}`;
-        },
+      formatDatetime(datetime) {
+        const date = new Date(datetime);
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        const hour = ("0" + date.getHours()).slice(-2);
+        const minute = ("0" + date.getMinutes()).slice(-2);
+        return `${year}-${month}-${day} ${hour}:${minute}`;
+      },
   }
 
 };
