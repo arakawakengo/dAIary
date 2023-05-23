@@ -16,7 +16,7 @@ class ChatGPTView(APIView):
 
         messages = [
             {"role": "system", "content": request.data["context"]},
-            {"role": "user", "content": request.data["diary_text"]},
+            {"role": "user", "content": request.data["content"]},
         ]
         
         response = openai.ChatCompletion.create(\
