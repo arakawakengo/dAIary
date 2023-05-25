@@ -32,6 +32,25 @@ workspace/kyodai_flea_market_app/PoIS
 workspace/kyodai_flea_market_app/templates
 ```
 
+## GPTのAPIを使用する準備 / Preparing to use the GPT API
+
+OpenAIのGPT APIを利用するためには、APIキーが必要がです。APIキーは、OpenAIの公式ウェブサイトから取得できます。
+
+1. OpenAIの公式ウェブサイトにアクセスし、アカウントを作成します。(https://openai.com/blog/openai-api)
+2. アカウントにログインした後、ダッシュボードからAPIキーを取得します。
+
+取得したAPIキーは、環境変数として設定することでアプリケーションから利用することができます。
+
+PoIS/chat_gpt/.envという名前のファイルを作成し、その中に以下のようにAPIキーを格納します。
+
+```shell
+API_KEY=<取得したAPIキー>
+```
+以下に、ファイル作成の具体的なコマンドを示します。
+```shell
+cd PoIS/chat_gpt
+echo "API_KEY=<取得したAPIキー>" > .env
+```
 
 
 ## VueとDjangoのサーバーを起動できるか確認 / Check if you can start Vue or Django server
