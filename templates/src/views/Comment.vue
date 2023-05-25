@@ -14,6 +14,9 @@
             <textarea id="content" name="content" readonly v-model="diary.content"></textarea>
             <p>{{ formatDatetime(diary.created_at) }}</p>
           </form>
+          <button class="button delete-button" style="margin-bottom: 15px;" v-on:click="pushedDelete = true">
+            Delete diary
+          </button>
         </div>
       <div class="right-container">
         <div class="dropdown-container">
@@ -30,9 +33,13 @@
               </option>
             </select>
       </div>
-      <button class="button additional-button" style="margin-bottom: 30px;" :disabled="!selectedCharacter || !selectedPersonality" :style="{ opacity: (!selectedCharacter || !selectedPersonality) ? 0.5 : 1 }" @click="submitForm">
-          Additional Button
+      <button class="button additional-button" style="margin-bottom: 15px;" :disabled="!selectedCharacter || !selectedPersonality" :style="{ opacity: (!selectedCharacter || !selectedPersonality) ? 0.5 : 1 }" @click="submitForm">
+          Receive comment
       </button>
+
+      <p v-if="beGeneratingComment" style="margin-bottom: 15px;" >AIがコメントを生成中です <span>{{ ellipsis }}</span> </p>
+      <p v-if="responseText && !beGeneratingComment" style="margin-bottom: 15px;" >{{ responseText }}</p>
+      
 
       
       <h2>Comment List</h2>
@@ -54,6 +61,15 @@
 
       </div>
     </div>
+    <transition name="modal">
+      <div class="modal-mask" v-if="pushedDelete">
+        <div class="modal">
+          <p>日記を削除してもいいですか？</p>
+          <button class="modal-button" @click="deleteDiary">OK</button>
+          <button class="modal-button" v-on:click="pushedDelete = false">NG</button>
+        </div>
+      </div>
+    </transition>
     </body>
   </div>
 </template>
@@ -76,6 +92,9 @@ export default {
         selectedPersonality: "",
         responseText: "",
         comments: [],
+        beGeneratingComment: false,
+        ellipsis: '',
+        pushedDelete: false,
       };
   },
   async created() {
@@ -91,6 +110,14 @@ export default {
   },
   methods: {
       submitForm() {
+          this.beGeneratingComment = true;
+
+          var dotCount = 0;
+          setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            this.ellipsis = '.'.repeat(dotCount);
+        }, 500);
+
           const url = `http://localhost:8000/api/diaries/CommentView/${this.diary_id}`; // 現在は一時的にDBへの保存を経由しない別のAPIを指定
           const token = localStorage.getItem("access");
           const data = {
@@ -105,11 +132,12 @@ export default {
           };
           axios.post(url, data, { headers })
             .then(response => {
-              this.responseText = response.data["response"];
               this.$router.go({path: this.$router.currentRoute.path, force: true})
+              this.responseText = response.data["response"];
             })
             .catch(() => {
-              this.responseText = "エラーが発生しました。";
+              this.beGeneratingComment = false;
+              this.responseText = "エラーが発生しました。もう一度試みてください。";
             });
         },
       formatDatetime(datetime) {
@@ -140,6 +168,15 @@ export default {
           },
         });
         this.comments = response.data.diary_comment_list;
+      },
+    async deleteDiary() {
+        const token = localStorage.getItem("access");
+        await axios.delete(`http://localhost:8000/api/diaries/${this.diary_id}/`, {
+          headers: {
+              'Authorization': `Bearer ${token}`,
+          },
+        });
+        this.$router.push('/calendar');
       },
   }
 };
@@ -194,6 +231,17 @@ max-width: 300px; /* Set a maximum width */
 text-align: center;
 box-sizing: border-box;
 }
+.delete-button {
+padding: 5px 10px; 
+font-size: 13px;
+border: none;
+border-radius: 1px;
+background-color: #F1F1F1;
+width: 100%; 
+max-width: 200px; 
+text-align: center;
+color:  red;
+}
 .comment_container {
 margin-top: auto;
 margin-bottom: 20px;
@@ -208,12 +256,12 @@ background-color: #F1F1F1;
 pointer-events: none;
 }
 .comment {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px;
-    color: #333;
-    background-color: #fff;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
 }
 .form {
 display: flex;
@@ -247,4 +295,43 @@ height: 70px;
 textarea {
 height: 550px;
 }
+.modal {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+padding: 1em 2em;
+border-radius: 7px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+z-index: 1000;
+border: 0.5px solid #333;
+}
+.modal-button {
+padding: 0.1em 1em;
+border-radius: 3px;
+border: 0.5px solid #333; /* ボタンに枠を追加 */
+cursor: pointer;
+background-color: #eee;
+margin: 15px 20px 0px 20px;
+}
+.modal-enter-active, .modal-leave-active {
+transition: opacity .05s;
+}
+.modal-enter, .modal-leave-to {
+opacity: 0;
+}
+.modal-mask {
+position: fixed;
+z-index: 999;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
 </style>

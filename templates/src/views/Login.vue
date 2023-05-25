@@ -18,10 +18,12 @@
         </p>
       </div>
         <transition name="modal">
-          <div class="modal" v-if="errorMessage">
-            <p>{{ errorMessage }}</p>
-            <p> Please, try again. </p>
-            <button class="modal-button" @click="clearError">OK</button>
+          <div class="modal-mask" v-if="errorMessage">
+            <div class="modal" v-if="errorMessage">
+              <p>{{ errorMessage }}</p>
+              <p> Please, try again. </p>
+              <button class="modal-button" @click="clearError">OK</button>
+            </div>
           </div>
         </transition>
     </div>
@@ -88,12 +90,23 @@ clearError() {
       margin-top: 15px;
       margin-bottom: 0px;
     }
-    
     .modal-enter-active, .modal-leave-active {
       transition: opacity .05s;
     }
     .modal-enter, .modal-leave-to {
       opacity: 0;
     }
+    .modal-mask {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
     </style>
   
