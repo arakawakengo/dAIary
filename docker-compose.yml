@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  vue_app:
+    build: ./templates
+    volumes:
+      - ./templates:/dAIary_flont
+      - /templates/node_modules
+    ports:
+      - 8080:8080
+
+  django_app: 
+    build: ./
+    volumes:
+      - ./:/dAIary_API 
+    ports:
+      - 8000:8000
