@@ -45,6 +45,7 @@ export default {
     color: white;
     text-decoration: none;
     margin-left: 10px;
+    text-decoration:underline 0.1px;
 }
 
 .header .nav-links a:hover {
