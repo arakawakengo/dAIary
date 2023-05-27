@@ -4,7 +4,7 @@
     <div class="diary-create">
     <div class="create-form">
       <div class="create-heading">
-        <h2>Create Diary</h2>
+        <h2>Write Diary</h2>
       </div>
       <div class="form-fields">
         <label for="title" class="sr-only">Title:</label>
