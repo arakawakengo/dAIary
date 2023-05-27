@@ -76,8 +76,8 @@ components:{
       currentDate: moment(),
       events:[],
       diary_list: [],
-      inputYear: '',
-      inputMonth: '',
+      inputYear: moment().year(),
+      inputMonth: moment().month()+1 % 12,
     };
   },
   async created() {
