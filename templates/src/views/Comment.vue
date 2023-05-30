@@ -9,9 +9,9 @@
         <div class="left-container">
           <form class="form">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" readonly v-model="diary.title">
+            <div id="title" name="title" v-html="diary.title"></div>
             <label for="content">Content:</label>
-            <textarea id="content" name="content" readonly v-model="diary.content"></textarea>
+            <p id="content" name="content" v-html="diary.content"></p>
             <p>{{ formatDatetime(diary.created_at) }}</p>
           </form>
           <button class="button delete-button" style="margin-bottom: 15px;" v-on:click="pushedDelete = true">
@@ -274,25 +274,26 @@ label {
 font-size: 18px;
 margin-top: 10px;
 }
-input[type="text"],
-textarea {
-padding: 5px;
-margin-top: 5px;
-font-size: 16px;
-border: 1px solid #ccc;
-border-radius: 4px;
-width: 100%;
-resize: vertical;
-box-sizing: border-box;
-padding: 10px;
-font-family: Arial, sans-serif;
-background-color: #F1F1F1;
-pointer-events: none;
+#title, #content {
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #F1F1F1;
+  pointer-events: auto;
+  overflow: auto;
+  white-space: pre-line; 
+  text-align: left;
 }
-input[type="text"] {
+#title {
 height: 70px;
 }
-textarea {
+#content {
 height: 550px;
 }
 .modal {

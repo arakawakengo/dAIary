@@ -4,7 +4,7 @@
         <div class="nav-links">
             <router-link to="/dashboard">Dashboard</router-link>
             <router-link to="/calendar">Calendar</router-link>
-            <router-link to="/diary-create">Create Diary</router-link>
+            <router-link to="/diary-create">Write Diary</router-link>
             <router-link to="/" @click="logout">Sign out</router-link>
         </div>
     </div>
@@ -45,6 +45,7 @@ export default {
     color: white;
     text-decoration: none;
     margin-left: 10px;
+    text-decoration:underline 0.1px;
 }
 
 .header .nav-links a:hover {

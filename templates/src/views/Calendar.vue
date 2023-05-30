@@ -5,9 +5,26 @@
 
     <h2 class="calendar-title">{{ displayDate }}</h2>
     <div class="button-area">
-      <button @click="prevMonth" class="button">前の月</button>
-      <button @click="thisMonth" class="button">今月</button>
-      <button @click="nextMonth" class="button">次の月</button>
+      <div class="navigation-buttons">
+        <button @click="prevMonth" class="button">前の月</button>
+        <button @click="thisMonth" class="button">今月</button>
+        <button @click="nextMonth" class="button">次の月</button>
+      </div>
+      <div class="date-input">
+        <div class="input-wrapper">
+          <select v-model="inputYear">
+            <option disabled value="">Year</option>
+            <option v-for="year in years" :key="year" :value="year">{{ year }}年</option>
+          </select>
+        </div>
+        <div class="input-wrapper">
+          <select v-model="inputMonth">
+            <option disabled value="">Month</option>
+            <option v-for="month in months" :key="month" :value="month">{{ month }}月</option>
+          </select>
+        </div>
+        <button @click="goToMonth" class="button">Go</button>
+      </div>
     </div>
     <div class="calendar">
       <div class="calendar-weekly">
@@ -59,6 +76,8 @@ components:{
       currentDate: moment(),
       events:[],
       diary_list: [],
+      inputYear: moment().year(),
+      inputMonth: moment().month()+1 % 12,
     };
   },
   async created() {
@@ -77,7 +96,7 @@ components:{
           name: diary.title,
           start: this.formatDate(diary.created_at),
           end: this.formatDate(diary.created_at),
-          color: "#2C7CFF"
+          color: "#666699"
         });
       });
 
@@ -154,6 +173,11 @@ components:{
     isToday(day) {
       return moment().format("YYYY-MM-DD") === day.month + "-" + ("0" + day.day).slice(-2);
     },
+    goToMonth() {
+      if (this.inputYear && this.inputMonth) {
+        this.currentDate = moment(`${this.inputYear}-${this.inputMonth}`, 'YYYY-MM-01');
+      }
+    },
   },
   computed: {
     calendars() {
@@ -164,6 +188,13 @@ components:{
     },
     currentMonth(){
     return this.currentDate.format('YYYY-MM')
+    },
+    years() {
+      const currentYear = new Date().getFullYear();
+      return Array.from({length: currentYear - 2020 + 1}, (_, i) => 2020 + i);
+    },
+    months() {
+      return Array.from({length: 12}, (_, i) => i + 1);
     },
   },
   
@@ -176,11 +207,30 @@ components:{
   width:100%;
 }
 .button-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin:0.5em 0;
 }
 .button{
-  padding:4px 8px;
+  padding:2px 4px;
   margin-right:8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.navigation-buttons{
+  display: flex;
+  justify-content: center;
+}
+.date-input{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.input-wrapper {
+  border: 1px solid #ccc;
+  padding: 2px;
+  margin-right: 10px;
 }
 .calendar{
   max-width:100%;
@@ -198,6 +248,9 @@ components:{
   border-right:1px solid #E0E0E0;
   border-bottom:1px solid #E0E0E0;
   margin-right:-1px;
+  width: 100/7%;
+  max-width: 100/7%;
+  overflow: hidden;
 }
 .today {
   background-color: #D6FF58; 

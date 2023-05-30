@@ -8,7 +8,7 @@
           <li v-for="diary in (diary_list[0] || []).reverse()" :key="diary.diary_id">
             <router-link :to="`/comment/${diary.diary_id}`">
               <h3>{{ diary.title }}</h3>
-              <p>{{ diary.content }}</p>
+              <p>{{ truncateContent(diary.content) }}</p>
               <p>{{ formatDatetime(diary.created_at) }}</p>
             </router-link>
           </li>
@@ -42,7 +42,7 @@ export default {
       });
       this.diary_list.push(response.data.diary_list);
       this.diary_list[0].forEach(diary => {
-        diary.content = diary.content.replace(/\\n/g, "\n");
+        diary.content = diary.content.replace(/\\n/g, "<br>");
       });      
       console.log(this.diary_list[0]);
     } catch (error) {
@@ -59,6 +59,13 @@ export default {
       const hour = ("0" + date.getHours()).slice(-2);
       const minute = ("0" + date.getMinutes()).slice(-2);
       return `${year}-${month}-${day} ${hour}:${minute}`;
+    },
+    truncateContent(content, limit = 250) {
+      if (content.length > limit) {
+        return content.substring(0, limit) + "...";
+      } else {
+        return content;
+      }
     },
   },
 };

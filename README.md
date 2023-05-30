@@ -77,6 +77,55 @@ http://localhost:8000/ にアクセスしてDjangoの画面が表示されれば
 
 Go to http://localhost:8000/ and if you see the Django screen, you're good to go.
 
+
+## Dockerを用いての環境構築
+
+Dockerを用いての環境のセットアップ方法を説明します。
+
+### 必要なツール
+
+- Docker
+- Docker Compose
+
+これらのツールがインストールされていることを確認してください。
+
+### セットアップ手順
+
+1. リポジトリをクローンします。
+
+    ```
+    git clone https://github.com/arakawakengo/dAIary.git
+    ```
+
+2. プロジェクトのディレクトリに移動します。
+
+    ```
+    cd dAIary
+    ```
+
+3. Dockerを用いてアプリケーションをビルドします。
+
+    ```
+    docker-compose build
+    ```
+
+4. Dockerを用いてアプリケーションを起動します。
+
+    ```
+    docker-compose up
+    ```
+
+### アプリケーションの使用方法
+
+- フロントエンド（Vue.js）はhttp://localhost:8080 でアクセス可能です。
+- バックエンド（Django）はhttp://localhost:8000 でアクセス可能です。
+
+### 注意事項
+
+- 初めて `docker-compose up` を実行する際、または依存関係に変更があった場合は `docker-compose up --build` を実行してください。
+- アプリケーションをバックグラウンドで実行したい場合は `docker-compose up -d` を実行してください。
+
+
 ## Gitの使い方 / How to use Git
 ### 基本的な作業フロー
 - 自分の作業ブランチを作って、そのブランチで作業をします。
