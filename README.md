@@ -1,4 +1,4 @@
-# kyodai_flea_market_app
+# ｄAIary
 Practice of Infomation System 8班
 
 ## Task List
