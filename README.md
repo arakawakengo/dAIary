@@ -1,5 +1,4 @@
 # ｄAIary
-Practice of Infomation System 8班
 
 ## Task List
 1. HomePages
